@@ -1,4 +1,4 @@
-Configuration MPLS L2VPN Service Juniper
+Configuration MPLS L2VPN Service Juniper vMX
 
 [Interface Configuration Trunk Node 11-CE]
 set interfaces ge-0/0/1 flexible-vlan-tagging
