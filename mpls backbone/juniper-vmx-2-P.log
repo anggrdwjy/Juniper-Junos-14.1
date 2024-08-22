@@ -1,0 +1,78 @@
+jncia@2-P> show configuration | display set
+set version 14.1R4.8
+
+[Basic Configuration]
+set system host-name 2-P
+set system time-zone Asia/jakarta
+set system root-authentication encrypted-password "$1$q0ARgBs5$Mm4LpQvrUUSzIwfvPoJ8o1"
+set system login user jncia uid 2000
+set system login user jncia class super-user
+set system login user jncia authentication encrypted-password "$1$vtkxwSqt$uJJX6CJ3Z3a6zWmBWReOP."
+set system services telnet
+set system syslog user * any emergency
+set system syslog file messages any notice
+set system syslog file messages authorization info
+set system syslog file interactive-commands interactive-commands any
+
+[Interface Configuration and MPLS]
+set interfaces ge-0/0/0 mtu 2000
+set interfaces ge-0/0/0 unit 0 description "To 10.20-PE"
+set interfaces ge-0/0/0 unit 0 family inet address 172.0.7.2/30
+set interfaces ge-0/0/0 unit 0 family mpls
+set interfaces ge-0/0/1 mtu 2000
+set interfaces ge-0/0/1 unit 0 description "To 20.10-PE"
+set interfaces ge-0/0/1 unit 0 family inet address 172.0.6.1/30
+set interfaces ge-0/0/1 unit 0 family mpls
+set interfaces lo0 unit 0 family inet address 2.2.2.2/32
+
+[Routing BGP Configuration]
+set routing-options graceful-restart
+set routing-options router-id 2.2.2.2
+set routing-options autonomous-system 65006
+
+[Protocol RSVP Configuration]
+set protocols rsvp interface ge-0/0/0.0
+set protocols rsvp interface ge-0/0/1.0
+set protocols rsvp interface lo0.0
+
+[Protocol MPLS Configuration]
+set protocols mpls interface ge-0/0/0.0
+set protocols mpls interface ge-0/0/1.0
+set protocols mpls interface lo0.0
+
+[BGP Peering Configuration]
+set protocols bgp log-updown
+set protocols bgp group RR type internal
+set protocols bgp group RR local-address 2.2.2.2
+set protocols bgp group RR family inet-vpn unicast
+set protocols bgp group RR authentication-key "$9$m5znEhrvMXtuORhclegoaUk."
+set protocols bgp group RR cluster 2.2.2.2
+set protocols bgp group RR peer-as 65006
+set protocols bgp group RR neighbor 6.6.6.6 description "To RR"
+
+[Routing OSPF Configuration]
+set protocols ospf area 0.0.0.0 interface ge-0/0/1.0 interface-type p2p
+set protocols ospf area 0.0.0.0 interface ge-0/0/1.0 metric 1
+set protocols ospf area 0.0.0.0 interface ge-0/0/1.0 hello-interval 5
+set protocols ospf area 0.0.0.0 interface ge-0/0/1.0 dead-interval 15
+set protocols ospf area 0.0.0.0 interface ge-0/0/1.0 authentication md5 1 key "$9$llEv8xJZjq.5bs2aZGiHtu0ISr"
+set protocols ospf area 0.0.0.0 interface lo0.0 interface-type p2p
+set protocols ospf area 0.0.0.0 interface lo0.0 metric 65000
+set protocols ospf area 0.0.0.0 interface ge-0/0/0.0 interface-type p2p
+set protocols ospf area 0.0.0.0 interface ge-0/0/0.0 metric 1
+set protocols ospf area 0.0.0.0 interface ge-0/0/0.0 hello-interval 5
+set protocols ospf area 0.0.0.0 interface ge-0/0/0.0 dead-interval 15
+set protocols ospf area 0.0.0.0 interface ge-0/0/0.0 authentication md5 1 key "$9$WKCXNVji.5T3goJDiHmPBIRSKM"
+
+[Protocol LDP and LDP Neighbor Configuration]
+set protocols ldp interface ge-0/0/0.0
+set protocols ldp interface ge-0/0/1.0
+set protocols ldp interface lo0.0
+set protocols ldp session 10.10.10.20 authentication-key "$9$B21RcrVb2aJDWLxdbwg4QF39uO"
+set protocols ldp session 20.20.20.10 authentication-key "$9$6zzPCpOMWxdVYhSrvW87NikqfFn"
+
+[Protocol LLDP Configuration]
+set protocols lldp interface ge-0/0/0
+set protocols lldp interface ge-0/0/1
+
+jncia@2-P>

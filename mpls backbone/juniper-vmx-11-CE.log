@@ -1,0 +1,66 @@
+jncia@11-CE# run show configuration | display set
+set version 14.1R4.8
+
+[Basic Configuration]
+set system host-name 11-CE
+set system time-zone Asia
+set system root-authentication encrypted-password "$1$ZXo2KrC2$So6jrxieVnq.hvbH3VdMx/"
+set system login user jncia uid 2000
+set system login user jncia class super-user
+set system login user jncia authentication encrypted-password "$1$FLb.HBWT$m51WjALkBjnmPlmTVeZhq0"
+set system services telnet
+set system syslog user * any emergency
+set system syslog file messages any notice
+set system syslog file messages authorization info
+set system syslog file interactive-commands interactive-commands any
+
+[Interface Configuration and MPLS]
+set interfaces ge-0/0/0 mtu 2000
+set interfaces ge-0/0/0 unit 0 description "To 10-PE"
+set interfaces ge-0/0/0 unit 0 family inet address 172.0.1.1/30
+set interfaces ge-0/0/0 unit 0 family mpls
+set interfaces lo0 unit 0 description 11-CE
+set interfaces lo0 unit 0 family inet address 11.11.11.11/32
+
+[Routing BGP Configuration]
+set routing-options graceful-restart
+set routing-options router-id 11.11.11.11
+set routing-options autonomous-system 65006
+
+[Protocol RSVP Configuration]
+set protocols rsvp interface ge-0/0/0.0
+set protocols rsvp interface lo0.0
+
+[Protocol MPLS Configuration]
+set protocols mpls interface ge-0/0/0.0
+set protocols mpls interface lo0.0
+
+[BGP Peering Configuration]
+set protocols bgp log-updown
+set protocols bgp group RR type internal
+set protocols bgp group RR local-address 11.11.11.11
+set protocols bgp group RR family inet-vpn unicast
+set protocols bgp group RR authentication-key "$9$F5lI6CpeK87NbIEclKvLXUji.Tz"
+set protocols bgp group RR cluster 11.11.11.11
+set protocols bgp group RR peer-as 65006
+set protocols bgp group RR neighbor 6.6.6.6 description "To RR"
+
+[Routing OSPF Configuration]
+set protocols ospf area 0.0.0.110 interface ge-0/0/0.0 interface-type p2p
+set protocols ospf area 0.0.0.110 interface ge-0/0/0.0 metric 1
+set protocols ospf area 0.0.0.110 interface ge-0/0/0.0 hello-interval 5
+set protocols ospf area 0.0.0.110 interface ge-0/0/0.0 dead-interval 15
+set protocols ospf area 0.0.0.110 interface ge-0/0/0.0 authentication md5 1 key "$9$VPsga5T39CujHqfTQn6reK8Nd"
+set protocols ospf area 0.0.0.110 interface lo0.0 interface-type p2p
+set protocols ospf area 0.0.0.110 interface lo0.0 metric 65000
+
+[Protocol LDP and LDP Neighbor Configuration]
+set protocols ldp interface ge-0/0/0.0
+set protocols ldp interface lo0.0
+set protocols ldp session 10.10.10.10 authentication-key "$9$bfY4JTQnCA0ik.5Qz6/lKvL-V"
+
+[Protocol LLDP Configuration]
+set protocols lldp interface ge-0/0/0
+
+[edit]
+jncia@11-CE#

@@ -1,0 +1,72 @@
+jncia@6-RR> show configuration | display set
+set version 14.1R4.8
+
+[Basic Configuration]
+set system host-name 6-RR
+set system time-zone Asia
+set system root-authentication encrypted-password "$1$RAZ3.buH$ntFQ3VKFyfIe9N9yzWSUt."
+set system login user jncia uid 2000
+set system login user jncia class super-user
+set system login user jncia authentication encrypted-password "$1$H76c2Ncz$wZ2Gkjkeh2V3I8Ys.97iy/"
+set system services telnet
+set system syslog user * any emergency
+set system syslog file messages any notice
+set system syslog file messages authorization info
+set system syslog file interactive-commands interactive-commands any
+
+[Interface Configuration and MPLS]
+set interfaces ge-0/0/0 mtu 1500
+set interfaces ge-0/0/0 unit 0 description "To 20-PE"
+set interfaces ge-0/0/0 unit 0 family inet address 172.0.9.2/30
+set interfaces ge-0/0/0 unit 0 family mpls
+set interfaces lo0 description 6-RR
+set interfaces lo0 unit 0 family inet address 6.6.6.6/32
+
+[Routing BGP Configuration]
+set routing-options graceful-restart
+set routing-options router-id 6.6.6.6
+set routing-options autonomous-system 65006
+
+[Protocol RSVP Configuration]
+set protocols rsvp interface ge-0/0/0.0
+set protocols rsvp interface lo0.0
+
+[Protocol MPLS Configuration]
+set protocols mpls interface ge-0/0/0.0
+set protocols mpls interface lo0.0
+
+[BGP Peering Configuration]
+set protocols bgp log-updown
+set protocols bgp group RR-CLIENT type internal
+set protocols bgp group RR-CLIENT local-address 6.6.6.6
+set protocols bgp group RR-CLIENT family inet-vpn unicast
+set protocols bgp group RR-CLIENT authentication-key "$9$nePf9t0vMX-dsEcyKMWx7jHkPz3"
+set protocols bgp group RR-CLIENT cluster 6.6.6.6
+set protocols bgp group RR-CLIENT peer-as 65006
+set protocols bgp group RR-CLIENT neighbor 11.11.11.11 description "To 11-CE"
+set protocols bgp group RR-CLIENT neighbor 10.10.10.10 description "To 10.10-PE"
+set protocols bgp group RR-CLIENT neighbor 10.10.10.20 description "To 10.20-PE"
+set protocols bgp group RR-CLIENT neighbor 1.1.1.1 description "To 1-P"
+set protocols bgp group RR-CLIENT neighbor 2.2.2.2 description "To 2-P"
+set protocols bgp group RR-CLIENT neighbor 20.20.20.20 description "To 20.20-PE"
+set protocols bgp group RR-CLIENT neighbor 20.20.20.10 description "To 20.10-PE"
+set protocols bgp group RR-CLIENT neighbor 21.21.21.21 description "To 21-CE"
+
+[Routing OSPF Configuration]
+set protocols ospf area 0.0.0.0 interface ge-0/0/0.0 interface-type p2p
+set protocols ospf area 0.0.0.0 interface ge-0/0/0.0 metric 65000
+set protocols ospf area 0.0.0.0 interface ge-0/0/0.0 hello-interval 5
+set protocols ospf area 0.0.0.0 interface ge-0/0/0.0 dead-interval 15
+set protocols ospf area 0.0.0.0 interface ge-0/0/0.0 authentication md5 1 key "$9$.fQ3REyKvLAp0IEhrl24oGHq"
+set protocols ospf area 0.0.0.0 interface lo0.0 interface-type p2p
+set protocols ospf area 0.0.0.0 interface lo0.0 metric 65000
+
+[Protocol LDP and LDP Neighbor Configuration]
+set protocols ldp interface ge-0/0/0.0
+set protocols ldp interface lo0.0
+set protocols ldp session 20.20.20.20 authentication-key "$9$QBoZ3/ArlMXxdBIEyleW8ZUDkfT"
+
+[Protocol LLDP Configuration]
+set protocols lldp interface ge-0/0/0
+
+jncia@6-RR>
