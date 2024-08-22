@@ -1,5 +1,7 @@
 jncia@10.20-PE# run show configuration | display set
 set version 14.1R4.8
+
+[Basic Configuration]
 set system host-name 10.20-PE
 set system time-zone Asia/Jakarta
 set system root-authentication encrypted-password "$1$dF.72z1z$jmExb7sHo02HI20vtVKWO1"
@@ -11,6 +13,8 @@ set system syslog user * any emergency
 set system syslog file messages any notice
 set system syslog file messages authorization info
 set system syslog file interactive-commands interactive-commands any
+
+[Interface Configuration and MPLS]
 set interfaces ge-0/0/0 mtu 2000
 set interfaces ge-0/0/0 unit 0 description "To 2-P"
 set interfaces ge-0/0/0 unit 0 family inet address 172.0.7.1/30
@@ -21,15 +25,23 @@ set interfaces ge-0/0/1 unit 0 family inet address 172.0.8.2/30
 set interfaces ge-0/0/1 unit 0 family mpls
 set interfaces lo0 unit 0 description 10.20-PE
 set interfaces lo0 unit 0 family inet address 10.10.10.20/32
+
+[Routing BGP Configuration]
 set routing-options graceful-restart
 set routing-options router-id 10.10.10.20
 set routing-options autonomous-system 65006
+
+[Protocol RSVP Configuration]
 set protocols rsvp interface ge-0/0/0.0
 set protocols rsvp interface ge-0/0/1.0
 set protocols rsvp interface lo0.0
+
+[Protocol MPLS Configuration]
 set protocols mpls interface ge-0/0/0.0
 set protocols mpls interface ge-0/0/1.0
 set protocols mpls interface lo0.0
+
+[BGP Peering Configuration]
 set protocols bgp log-updown
 set protocols bgp group RR type internal
 set protocols bgp group RR local-address 10.10.10.20
@@ -38,6 +50,8 @@ set protocols bgp group RR authentication-key "$9$uRshBRcN-wg4ZKM87-dsYfTQnAp"
 set protocols bgp group RR cluster 10.10.10.20
 set protocols bgp group RR peer-as 65006
 set protocols bgp group RR neighbor 6.6.6.6 description "To RR"
+
+[Routing OSPF Configuration]
 set protocols ospf area 0.0.0.0 interface ge-0/0/0.0 interface-type p2p
 set protocols ospf area 0.0.0.0 interface ge-0/0/0.0 metric 1
 set protocols ospf area 0.0.0.0 interface ge-0/0/0.0 hello-interval 5
@@ -50,11 +64,15 @@ set protocols ospf area 0.0.0.0 interface ge-0/0/1.0 metric 1
 set protocols ospf area 0.0.0.0 interface ge-0/0/1.0 hello-interval 5
 set protocols ospf area 0.0.0.0 interface ge-0/0/1.0 dead-interval 15
 set protocols ospf area 0.0.0.0 interface ge-0/0/1.0 authentication md5 1 key "$9$km5z1IcleW9ApBIRSys2gJjH"
+
+[Protocol LDP and LDP Neighbor Configuration]
 set protocols ldp interface ge-0/0/0.0
 set protocols ldp interface ge-0/0/1.0
 set protocols ldp interface lo0.0
 set protocols ldp session 2.2.2.2 authentication-key "$9$OP-QIhydVYoaUM8X-Vb2gTzF/p0"
 set protocols ldp session 10.10.10.10 authentication-key "$9$KyrWXNGUHmPQs24ZUDkquOBEre"
+
+[Protocol LLDP Configuration]
 set protocols lldp interface ge-0/0/0
 set protocols lldp interface ge-0/0/1
 
