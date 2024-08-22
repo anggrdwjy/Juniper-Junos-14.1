@@ -1,0 +1,74 @@
+jncia@20.20-PE> show configuration | display set
+set version 14.1R4.8
+set system host-name 20.20-PE
+set system time-zone Asia
+set system root-authentication encrypted-password "$1$JALDndGu$F/V1PLbGVuvj.ZShlzG6q1"
+set system login user jncia uid 2000
+set system login user jncia class super-user
+set system login user jncia authentication encrypted-password "$1$FOVqFoe3$AGVqY6fK5pmuyODLyWYfK1"
+set system services telnet
+set system syslog user * any emergency
+set system syslog file messages any notice
+set system syslog file messages authorization info
+set system syslog file interactive-commands interactive-commands any
+set interfaces ge-0/0/0 mtu 2000
+set interfaces ge-0/0/0 unit 0 description "To 1-P"
+set interfaces ge-0/0/0 unit 0 family inet address 172.0.3.2/30
+set interfaces ge-0/0/0 unit 0 family mpls
+set interfaces ge-0/0/1 mtu 2000
+set interfaces ge-0/0/1 unit 0 description "To 20.10-PE"
+set interfaces ge-0/0/1 unit 0 family inet address 172.0.4.1/30
+set interfaces ge-0/0/1 unit 0 family mpls
+set interfaces ge-0/0/2 mtu 1500
+set interfaces ge-0/0/2 unit 0 description "To RR"
+set interfaces ge-0/0/2 unit 0 family inet address 172.0.9.1/30
+set interfaces ge-0/0/2 unit 0 family mpls
+set interfaces lo0 unit 0 description 20.20-PE
+set interfaces lo0 unit 0 family inet address 20.20.20.20/32
+set routing-options graceful-restart
+set routing-options router-id 20.20.20.20
+set routing-options autonomous-system 65006
+set protocols rsvp interface ge-0/0/0.0
+set protocols rsvp interface ge-0/0/1.0
+set protocols rsvp interface lo0.0
+set protocols rsvp interface ge-0/0/2.0
+set protocols mpls interface ge-0/0/0.0
+set protocols mpls interface ge-0/0/1.0
+set protocols mpls interface lo0.0
+set protocols mpls interface ge-0/0/2.0
+set protocols bgp group RR type internal
+set protocols bgp group RR local-address 20.20.20.20
+set protocols bgp group RR family inet-vpn unicast
+set protocols bgp group RR authentication-key "$9$PTF6hclMWxp0BEcSeK4aJDqm"
+set protocols bgp group RR cluster 20.20.20.20
+set protocols bgp group RR peer-as 65006
+set protocols bgp group RR neighbor 6.6.6.6 description "To RR"
+set protocols ospf area 0.0.0.0 interface ge-0/0/0.0 interface-type p2p
+set protocols ospf area 0.0.0.0 interface ge-0/0/0.0 metric 1
+set protocols ospf area 0.0.0.0 interface ge-0/0/0.0 hello-interval 5
+set protocols ospf area 0.0.0.0 interface ge-0/0/0.0 dead-interval 15
+set protocols ospf area 0.0.0.0 interface ge-0/0/0.0 authentication md5 1 key "$9$yaFeMLoaUHkPdbs4aJDjCtpBhS"
+set protocols ospf area 0.0.0.0 interface ge-0/0/1.0 interface-type p2p
+set protocols ospf area 0.0.0.0 interface ge-0/0/1.0 metric 1
+set protocols ospf area 0.0.0.0 interface ge-0/0/1.0 hello-interval 5
+set protocols ospf area 0.0.0.0 interface ge-0/0/1.0 dead-interval 15
+set protocols ospf area 0.0.0.0 interface ge-0/0/1.0 authentication md5 1 key "$9$H.fQB1hrlM/CtO1IcSwY2aDi"
+set protocols ospf area 0.0.0.0 interface lo0.0 interface-type p2p
+set protocols ospf area 0.0.0.0 interface lo0.0 metric 65000
+set protocols ospf area 0.0.0.0 interface ge-0/0/2.0 interface-type p2p
+set protocols ospf area 0.0.0.0 interface ge-0/0/2.0 metric 65000
+set protocols ospf area 0.0.0.0 interface ge-0/0/2.0 hello-interval 5
+set protocols ospf area 0.0.0.0 interface ge-0/0/2.0 dead-interval 15
+set protocols ospf area 0.0.0.0 interface ge-0/0/2.0 authentication md5 1 key "$9$/6-EAuBW87Vb2cylM8LN-Hq.536"
+set protocols ldp interface ge-0/0/0.0
+set protocols ldp interface ge-0/0/1.0
+set protocols ldp interface ge-0/0/2.0
+set protocols ldp interface lo0.0
+set protocols ldp session 1.1.1.1 authentication-key "$9$km5z1IcleW9ApBIRSys2gJjH"
+set protocols ldp session 6.6.6.6 authentication-key "$9$X6ONVskqfzF/aZUHq.5TRhclWL"
+set protocols ldp session 20.20.20.10 authentication-key "$9$1.1ESlbwgJZj8X7Vws4oz3nC0B"
+set protocols lldp interface ge-0/0/0
+set protocols lldp interface ge-0/0/1
+set protocols lldp interface ge-0/0/2
+
+jncia@20.20-PE>
