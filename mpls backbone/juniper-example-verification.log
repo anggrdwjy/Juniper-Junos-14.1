@@ -1,0 +1,47 @@
+[Example Verification Juniper vMX MPLS Backbone]
+
+jncia@11-CE# run show ospf interface
+Interface           State   Area            DR ID           BDR ID          Nbrs
+ge-0/0/0.0          PtToPt  0.0.0.110       0.0.0.0         0.0.0.0            1
+[edit]
+
+jncia@11-CE# run show ospf neighbor
+Address          Interface              State     ID               Pri  Dead
+172.0.1.2        ge-0/0/0.0             Full      10.10.10.10      128    14
+[edit]
+
+jncia@11-CE# run show mpls interface brief
+Interface        State       Administrative groups (x: extended)
+ge-0/0/0.0       Up         <none>
+[edit]
+
+jncia@11-CE# run show ldp session
+  Address           State        Connection     Hold time  Adv. Mode
+10.10.10.10         Operational  Open             21         DU
+21.21.21.21         Operational  Open             29         DU
+[edit]
+
+jncia@11-CE# run show ldp neighbor
+Address            Interface          Label space ID         Hold time
+21.21.21.21        lo0.0              21.21.21.21:0            34
+172.0.1.2          ge-0/0/0.0         10.10.10.10:0            14
+[edit]
+
+jncia@11-CE# run show ldp interface
+Interface            Label space ID        Nbr count   Next hello
+lo0.0                11.11.11.11:0            1           0
+ge-0/0/0.0           11.11.11.11:0            1           1
+[edit]
+
+jncia@11-CE# run show bgp summary
+Groups: 1 Peers: 1 Down peers: 0
+Table          Tot Paths  Act Paths Suppressed    History Damp State    Pending
+bgp.l3vpn.0
+                       1          1          0          0          0          0
+Peer                     AS      InPkt     OutPkt    OutQ   Flaps Last Up/Dwn State|#Active/Received/Accepted/Damped...
+6.6.6.6               65006        134        147       0       0     1:04:19 Establ
+  bgp.l3vpn.0: 1/1/1/0
+  VPN-AB.inet.0: 1/1/1/0
+[edit]
+
+jncia@11-CE#
