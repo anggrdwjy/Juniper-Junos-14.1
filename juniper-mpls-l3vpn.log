@@ -1,0 +1,49 @@
+Configuration MPLS L2VPN Service Juniper vMX
+
+[Interface Configuration Trunk Node 21-CE]
+set interfaces ge-0/0/1 flexible-vlan-tagging
+set interfaces ge-0/0/1 mtu 1900
+set interfaces ge-0/0/1 encapsulation flexible-ethernet-services
+set interfaces ge-0/0/1 unit 20 vlan-id 20
+set interfaces ge-0/0/1 unit 20 family inet address 202.100.0.1/30
+
+[Policy VRF Configuration Node 21-CE]
+set policy-options policy-statement VPN-AB-EXP term 1 then community add target:65006:20
+set policy-options policy-statement VPN-AB-EXP term 1 then accept
+set policy-options policy-statement VPN-AB-IMP term 1 from community target:65006:20
+set policy-options policy-statement VPN-AB-IMP term 1 then accept
+set policy-options policy-statement VPN-AB-IMP term other then reject
+set policy-options community target:65006:20 members target:65006:20
+
+[Routing Instance VRF Configuration Node 21-CE]
+set routing-instances VPN-AB instance-type vrf
+set routing-instances VPN-AB interface ge-0/0/1.20
+set routing-instances VPN-AB route-distinguisher 65006:20
+set routing-instances VPN-AB vrf-import VPN-AB-IMP
+set routing-instances VPN-AB vrf-export VPN-AB-EXP
+set routing-instances VPN-AB vrf-table-label
+
+[Interface Configuration Trunk Node 11-CE]
+set interfaces ge-0/0/1 flexible-vlan-tagging
+set interfaces ge-0/0/1 mtu 1900
+set interfaces ge-0/0/1 encapsulation flexible-ethernet-services
+set interfaces ge-0/0/1 unit 20 vlan-id 20
+set interfaces ge-0/0/1 unit 20 family inet address 202.100.20.1/30
+
+[Policy VRF Configuration Node 11-CE]
+set policy-options policy-statement VPN-AB-EXP term 1 then community add target:65006:20
+set policy-options policy-statement VPN-AB-EXP term 1 then accept
+set policy-options policy-statement VPN-AB-IMP term 1 from community target:65006:20
+set policy-options policy-statement VPN-AB-IMP term 1 then accept
+set policy-options policy-statement VPN-AB-IMP term other then reject
+set policy-options community target:65006:20 members target:65006:20
+
+[Routing Instance VRF Configuration Node 11-CE]
+set routing-instances VPN-AB instance-type vrf
+set routing-instances VPN-AB interface ge-0/0/1.20
+set routing-instances VPN-AB route-distinguisher 65006:20
+set routing-instances VPN-AB vrf-import VPN-AB-IMP
+set routing-instances VPN-AB vrf-export VPN-AB-EXP
+set routing-instances VPN-AB vrf-table-label
+
+
