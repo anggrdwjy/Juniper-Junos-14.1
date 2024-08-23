@@ -1,4 +1,4 @@
-[Example Verification Juniper vMX MPLS Backbone]
+[Example Verification Juniper MPLS Backbone Node 11-CE]
 
 jncia@11-CE# run show ospf interface
 Interface           State   Area            DR ID           BDR ID          Nbrs
