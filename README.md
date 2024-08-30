@@ -2,7 +2,7 @@
 
 Full Demo Juniper vMX Junos 14.1
 ---------------
-
+- [Juniper vMX Junos 14.1 Routing OSPF, MPLS LDP, BGP and MPLS Service](https://youtube.com/playlist?list=PLy064HwEq9IyTJ9UQzxQ3GHHSa_S7d9DG&si=nKrMis55pcmpjilX)
 
 Basic Configuration :
 ---------------
@@ -25,10 +25,6 @@ set system login user [USERNAME] authentication password => [PASSWORD]
 
 #Privilage Login
 set system services telnet
-```
-Verification :
-```
-telnet [IP_ADDRESS]
 ```
 
 Interface Configuration :
