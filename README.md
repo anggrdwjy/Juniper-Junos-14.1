@@ -75,6 +75,11 @@ set protocols ospf area [ID_AREA_B] interface [PORT] hello-interval 5
 set protocols ospf area [ID_AREA_B] interface [PORT] dead-interval 15
 set protocols ospf area [ID_AREA_B] interface [PORT] authentication md5 1 key [PASSWORD]
 ```
+Verification
+```
+run show ospf interface
+run show ospf neighbor
+```
 
 MPLS LDP :
 ---------------
@@ -87,6 +92,13 @@ set protocols ldp interface [LOOPBACK]
 set protocols ldp session [IP_NEIGHBOR_1] authentication-key [PASSWORD]
 set protocols ldp session [IP_NEIGHBOR_2] authentication-key [PASSWORD]
 set protocols ldp session [IP_NEIGHBOR_3] authentication-key [PASSWORD]
+```
+Verification
+```
+run show mpls interface brief
+run show ldp interface
+run show ldp neighbor
+run show ldp session
 ```
 
 LLDP and RSVP :
@@ -131,6 +143,10 @@ set protocols bgp group [BGP_GROUP_RR_CLIENT] neighbor [IP_RR_CLIENT_A] descript
 set protocols bgp group [BGP_GROUP_RR_CLIENT] neighbor [IP_RR_CLIENT_B] description [DESCRIPTION]
 set protocols bgp group [BGP_GROUP_RR_CLIENT] neighbor [IP_RR_CLIENT_C] description [DESCRIPTION]
 set protocols bgp group [BGP_GROUP_RR_CLIENT] neighbor [IP_RR_CLIENT_D] description [DESCRIPTION]
+```
+Verification
+```
+run show bgp summary
 ```
 
 MPLS Service :
