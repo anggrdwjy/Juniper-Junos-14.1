@@ -115,6 +115,23 @@ set protocols bgp group [BGP_GROUP] cluster [CLUSTER_ID]
 set protocols bgp group [BGP_GROUP] peer-as [AS_NUMBER_PEERING]
 set protocols bgp group [BGP_GROUP] neighbor [IP_ROUTE_REFLECTOR] description [DESCRIPTION]
 ```
+Routing BGP to Route Reflector Client
+```
+set routing-options graceful-restart
+set routing-options router-id [IP_LOOPBACK]
+set routing-options autonomous-system [AS-NUMBER]
+set protocols bgp log-updown
+set protocols bgp group [BGP_GROUP_RR_CLIENT] type internal
+set protocols bgp group [BGP_GROUP_RR_CLIENT] local-address [IP_LOOPBACK]
+set protocols bgp group [BGP_GROUP_RR_CLIENT] family inet-vpn unicast  <- VPNV4
+set protocols bgp group [BGP_GROUP_RR_CLIENT] authentication-key [PASSWORD]
+set protocols bgp group [BGP_GROUP_RR_CLIENT] cluster [CLUSTER_ID]
+set protocols bgp group [BGP_GROUP_RR_CLIENT] peer-as [AS_NUMBER_PEERING]
+set protocols bgp group [BGP_GROUP_RR_CLIENT] neighbor [IP_RR_CLIENT_A] description [DESCRIPTION]
+set protocols bgp group [BGP_GROUP_RR_CLIENT] neighbor [IP_RR_CLIENT_B] description [DESCRIPTION]
+set protocols bgp group [BGP_GROUP_RR_CLIENT] neighbor [IP_RR_CLIENT_C] description [DESCRIPTION]
+set protocols bgp group [BGP_GROUP_RR_CLIENT] neighbor [IP_RR_CLIENT_D] description [DESCRIPTION]
+```
 
 
 
