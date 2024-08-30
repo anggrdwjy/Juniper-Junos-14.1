@@ -133,6 +133,77 @@ set protocols bgp group [BGP_GROUP_RR_CLIENT] neighbor [IP_RR_CLIENT_C] descript
 set protocols bgp group [BGP_GROUP_RR_CLIENT] neighbor [IP_RR_CLIENT_D] description [DESCRIPTION]
 ```
 
+MPLS Service :
+---------------
+MPLS L2VPN
+```
+@NODE-A
+set interfaces ge-0/0/1 flexible-vlan-tagging
+set interfaces ge-0/0/1 mtu 1900
+set interfaces ge-0/0/1 encapsulation flexible-ethernet-services
+set interfaces ge-0/0/1 unit 10 description L2VPN
+set interfaces ge-0/0/1 unit 10 encapsulation vlan-ccc
+set interfaces ge-0/0/1 unit 10 vlan-id 10
+set protocols l2circuit neighbor 21.21.21.21 interface ge-0/0/1.10 virtual-circuit-id 10
+set protocols l2circuit neighbor 21.21.21.21 interface ge-0/0/1.10 description L2VPN
+set protocols l2circuit neighbor 21.21.21.21 interface ge-0/0/1.10 no-control-word
+set protocols l2circuit neighbor 21.21.21.21 interface ge-0/0/1.10 ignore-encapsulation-mismatch
+
+@NODE-B
+set interfaces ge-0/0/1 flexible-vlan-tagging
+set interfaces ge-0/0/1 mtu 1900
+set interfaces ge-0/0/1 encapsulation flexible-ethernet-services
+set interfaces ge-0/0/1 unit 10 description L2VPN
+set interfaces ge-0/0/1 unit 10 encapsulation vlan-ccc
+set interfaces ge-0/0/1 unit 10 vlan-id 10
+set protocols l2circuit neighbor 11.11.11.11 interface ge-0/0/1.10 virtual-circuit-id 10
+set protocols l2circuit neighbor 11.11.11.11 interface ge-0/0/1.10 description L2VPN
+set protocols l2circuit neighbor 11.11.11.11 interface ge-0/0/1.10 no-control-word
+set protocols l2circuit neighbor 11.11.11.11 interface ge-0/0/1.10 ignore-encapsulation-mismatch
+```
+MPLS L3VPN
+```
+@NODE-A
+[Interface Configuration Trunk Node 21-CE]
+set interfaces ge-0/0/1 flexible-vlan-tagging
+set interfaces ge-0/0/1 mtu 1900
+set interfaces ge-0/0/1 encapsulation flexible-ethernet-services
+set interfaces ge-0/0/1 unit 20 vlan-id 20
+set interfaces ge-0/0/1 unit 20 family inet address 202.100.0.1/30
+set policy-options policy-statement VPN-AB-EXP term 1 then community add target:65006:20
+set policy-options policy-statement VPN-AB-EXP term 1 then accept
+set policy-options policy-statement VPN-AB-IMP term 1 from community target:65006:20
+set policy-options policy-statement VPN-AB-IMP term 1 then accept
+set policy-options policy-statement VPN-AB-IMP term other then reject
+set policy-options community target:65006:20 members target:65006:20
+set routing-instances VPN-AB instance-type vrf
+set routing-instances VPN-AB interface ge-0/0/1.20
+set routing-instances VPN-AB route-distinguisher 65006:20
+set routing-instances VPN-AB vrf-import VPN-AB-IMP
+set routing-instances VPN-AB vrf-export VPN-AB-EXP
+set routing-instances VPN-AB vrf-table-label
+
+@NODE-B
+set interfaces ge-0/0/1 flexible-vlan-tagging
+set interfaces ge-0/0/1 mtu 1900
+set interfaces ge-0/0/1 encapsulation flexible-ethernet-services
+set interfaces ge-0/0/1 unit 20 vlan-id 20
+set interfaces ge-0/0/1 unit 20 family inet address 202.100.20.1/30
+set policy-options policy-statement VPN-AB-EXP term 1 then community add target:65006:20
+set policy-options policy-statement VPN-AB-EXP term 1 then accept
+set policy-options policy-statement VPN-AB-IMP term 1 from community target:65006:20
+set policy-options policy-statement VPN-AB-IMP term 1 then accept
+set policy-options policy-statement VPN-AB-IMP term other then reject
+set policy-options community target:65006:20 members target:65006:20
+set routing-instances VPN-AB instance-type vrf
+set routing-instances VPN-AB interface ge-0/0/1.20
+set routing-instances VPN-AB route-distinguisher 65006:20
+set routing-instances VPN-AB vrf-import VPN-AB-IMP
+set routing-instances VPN-AB vrf-export VPN-AB-EXP
+set routing-instances VPN-AB vrf-table-label
+```
+
+
 
 
 
