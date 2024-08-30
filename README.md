@@ -177,6 +177,11 @@ set protocols l2circuit neighbor 11.11.11.11 interface ge-0/0/1.10 description L
 set protocols l2circuit neighbor 11.11.11.11 interface ge-0/0/1.10 no-control-word
 set protocols l2circuit neighbor 11.11.11.11 interface ge-0/0/1.10 ignore-encapsulation-mismatch
 ```
+Verification
+```
+run show l2circuit connections up | grep ge-0/0/1.10
+```
+
 MPLS L3VPN
 ```
 @NODE-A
@@ -217,6 +222,12 @@ set routing-instances VPN-AB route-distinguisher 65006:20
 set routing-instances VPN-AB vrf-import VPN-AB-IMP
 set routing-instances VPN-AB vrf-export VPN-AB-EXP
 set routing-instances VPN-AB vrf-table-label
+```
+Verification
+```
+run show route table VPN-AB.inet.0
+run show arp vpn VPN-AB
+run ping 202.100.20.2 routing-instance VPN-AB
 ```
 
 
