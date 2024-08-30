@@ -43,28 +43,40 @@ set interfaces ge-0/0/0 unit 0 family mpls
 ```
 Verification
 ```
-show interface
+run show interface terse | grep up
+run show interface terse | grep down
+run show interface brief
 ```
 
 Routing OSPF :
 ---------------
-Configuration Routing OSPF
+Configuration Routing OSPF Single Area or Backbone Area
 ```
-set protocols ospf area 0.0.0.0 interface ge-0/0/0.0 interface-type p2p
-set protocols ospf area 0.0.0.0 interface ge-0/0/0.0 metric 1
-set protocols ospf area 0.0.0.0 interface ge-0/0/0.0 hello-interval 5
-set protocols ospf area 0.0.0.0 interface ge-0/0/0.0 dead-interval 15
-set protocols ospf area 0.0.0.0 interface ge-0/0/0.0 authentication md5 1 key "$9$0xm11ES-ds4oGvWLNdVY25Qz6tu"
-set protocols ospf area 0.0.0.0 interface lo0.0 interface-type p2p
-set protocols ospf area 0.0.0.0 interface lo0.0 metric 65000
-set protocols ospf area 0.0.0.0 interface ge-0/0/1.0 interface-type p2p
-set protocols ospf area 0.0.0.0 interface ge-0/0/1.0 metric 1
-set protocols ospf area 0.0.0.0 interface ge-0/0/1.0 hello-interval 5
-set protocols ospf area 0.0.0.0 interface ge-0/0/1.0 dead-interval 15
-set protocols ospf area 0.0.0.0 interface ge-0/0/1.0 authentication md5 1 key "$9$0ybt1ES-ds4oGvWLNdVY25Qz6tu"
+set protocols ospf area [ID_AREA] interface [PORT] interface-type p2p
+set protocols ospf area [ID_AREA] interface [PORT] metric [1-65000]  <- MTU
+set protocols ospf area [ID_AREA] interface [PORT] hello-interval 5
+set protocols ospf area [ID_AREA] interface [PORT] dead-interval 15
+set protocols ospf area [ID_AREA] interface [PORT] authentication md5 1 key [PASSWORD]
+set protocols ospf area [ID_AREA] interface [LOOPBACK] interface-type p2p
+set protocols ospf area [ID_AREA] interface [LOOPBACK] metric [1-65000]  <- MTU
+```
+Configuration Routing OSPF Multiarea
+```
+set protocols ospf area [ID_AREA_A] interface [PORT] interface-type p2p
+set protocols ospf area [ID_AREA_A] interface [PORT] metric [1-65000]  <- MTU
+set protocols ospf area [ID_AREA_A] interface [PORT] hello-interval 5
+set protocols ospf area [ID_AREA_A] interface [PORT] dead-interval 15
+set protocols ospf area [ID_AREA_A] interface [PORT] authentication md5 1 key [PASSWORD]
+set protocols ospf area [ID_AREA_A] interface [LOOPBACK] interface-type p2p
+set protocols ospf area [ID_AREA_A] interface [LOOPBACK] metric [1-65000]  <- MTU
+set protocols ospf area [ID_AREA_B] interface [PORT] interface-type p2p
+set protocols ospf area [ID_AREA_B] interface [PORT] metric [1-65000]  <- MTU
+set protocols ospf area [ID_AREA_B] interface [PORT] hello-interval 5
+set protocols ospf area [ID_AREA_B] interface [PORT] dead-interval 15
+set protocols ospf area [ID_AREA_B] interface [PORT] authentication md5 1 key [PASSWORD]
 ```
 
-Routing OSPF :
+MPLS LDP :
 ---------------
 Configuration MPLS LDP :
 ```
@@ -72,36 +84,36 @@ set protocols mpls interface [PORT_INTERFACE]
 set protocols mpls interface [LOOPBACK]
 set protocols ldp interface [PORT_INTERFACE]
 set protocols ldp interface [LOOPBACK]
-set protocols ldp session [IP_NEIGHBOR] authentication-key [PASSWORD]
+set protocols ldp session [IP_NEIGHBOR_1] authentication-key [PASSWORD]
+set protocols ldp session [IP_NEIGHBOR_2] authentication-key [PASSWORD]
+set protocols ldp session [IP_NEIGHBOR_3] authentication-key [PASSWORD]
 ```
 
-Configuration LLDP and RSVP :
+LLDP and RSVP :
 ---------------
 ```
 set protocols lldp interface [PORT_INTERFACE]
 set protocols lldp interface [PORT_INTERFACE]
-set protocols rsvp interface ge-0/0/0.0
-set protocols rsvp interface ge-0/0/1.0
-set protocols rsvp interface lo0.0
+set protocols rsvp interface [PORT_INTERFACE]
+set protocols rsvp interface [PORT_INTERFACE]
+set protocols rsvp interface [LOOPBACK]
 ```
 
-Configuration BGP :
+BGP Configuration :
 ---------------
+Routing BGP to Route Reflector
 ```
-#Routing BGP
 set routing-options graceful-restart
-set routing-options router-id 1.1.1.1
-set routing-options autonomous-system 65006
-
-#Peering BGP
+set routing-options router-id [IP_LOOPBACK]
+set routing-options autonomous-system [AS-NUMBER]
 set protocols bgp log-updown
-set protocols bgp group RR type internal
-set protocols bgp group RR local-address 1.1.1.1
-set protocols bgp group RR family inet-vpn unicast
-set protocols bgp group RR authentication-key "$9$eWFML7ZGi.mTwYgJGUHkp0ORyl"
-set protocols bgp group RR cluster 1.1.1.1
-set protocols bgp group RR peer-as 65006
-set protocols bgp group RR neighbor 6.6.6.6 description "To RR"
+set protocols bgp group [BGP_GROUP] type internal
+set protocols bgp group [BGP_GROUP] local-address [IP_LOOPBACK]
+set protocols bgp group [BGP_GROUP] family inet-vpn unicast  <- VPNV4
+set protocols bgp group [BGP_GROUP] authentication-key [PASSWORD]
+set protocols bgp group [BGP_GROUP] cluster [CLUSTER_ID]
+set protocols bgp group [BGP_GROUP] peer-as [AS_NUMBER_PEERING]
+set protocols bgp group [BGP_GROUP] neighbor [IP_ROUTE_REFLECTOR] description [DESCRIPTION]
 ```
 
 
