@@ -1,7 +1,5 @@
 # This repository is a guide for learn Juniper Junos® OS resources and references to practice configuration. 
 
-# Initiation Command
-
 ## Command References Juniper Junos® OS
 
 | Command | Description |
@@ -371,11 +369,22 @@ Verification
 
 ```
 
-
 # Additional Resources
 
 ## Books / Manuals
-
+- [Juniper MPLS and Service by AW](https://drive.google.com/file/d/1RCGwMK9uCFW9ju0MRgpeNHQmXs1LZVmZ/view?usp=drive_link)
+- [Junos CLI Guide](https://drive.google.com/file/d/1nTZlcABOvOkjPxvqIL1U7ZGQMirrm5XA/view?usp=drive_link)
+- [Workbook Juniper Logical System and Routing Protocols](https://drive.google.com/file/d/1OL0xcsyCosylRMwiZLvtqNWKAi1-9jbm/view?usp=drive_link)
+- [Advanced Juniper Networks Routing](https://drive.google.com/file/d/1sCcvM2h_k7ehJqFLzxEikmGd4bb5kXGe/view?usp=drive_link)
+- []()
+- []()
+- []()
+- []()
+  
 ## Youtube
-
-
+- []()
+- []()
+- []()
+- []()
+- []()
+- []()
