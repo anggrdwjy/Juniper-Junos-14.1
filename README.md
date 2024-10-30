@@ -32,7 +32,7 @@
 set system host-name "[DEVICE_NAME]"
 ```
 
-## Timezone
+## Local Time Clock
 ```
 set system time-zone Asia/Jakarta
 ```
