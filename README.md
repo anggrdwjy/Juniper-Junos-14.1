@@ -26,7 +26,7 @@
   * [VPLS \(Virtual Private LAN Service)](#VPLS-(Virtual-Private-LAN-Service))
 * [MPLS L3VPN](#MPLS-L3VPN)
   * [VRF \(Virtual Routing Forwarding)](#VRF-(Virtual-Routing-Forwarding))
-  * [VRF Option Inter AS \(AS-Overide)](#VRF-Option Inter-AS-(AS-Overide))
+  * [VRF Option Inter AS \(AS-Overide)](#VRF-Option-Inter-AS-(AS-Overide))
   * [VRF Option Inter OSPF \(Sham-Link)](#VRF-Option-Inter-OSPF-(Sham-Link))
 * [Additional Resources](#Additional-Resources)
   * [Books / Manuals](#Books-/-Manuals)
