@@ -14,6 +14,8 @@
 | show route summary | show all route |
 | show bgp summary | show bgp all connected | 
 | show bgp neighbor | show bgp neighbor connected | 
+| show route receive-protocol bgp `IP_Destination` |
+| show route advertising-protocol bgp `IP_Destination` |
 | show ospf neighbor | show ospf neighbor connected | 
 | show ospf interface | show ospf interface configuration |
 | show mpls interface | show mpls interface configuration | 
@@ -32,7 +34,7 @@
 set system host-name "[DEVICE_NAME]"
 ```
 
-## Local Time Clock
+## Timezone
 ```
 set system time-zone Asia/Jakarta
 ```
@@ -160,7 +162,8 @@ set protocols lldp interface [PORT_INTERFACE]
 ```
 Verification
 ```
-
+show lldp neighbor
+show lldp detail
 ```
 
 ## RSVP (Resource Reservation Protocol)
@@ -171,7 +174,7 @@ set protocols rsvp interface [LOOPBACK]
 ```
 Verification
 ```
-
+show rsvp interface
 ```
 
 # BGP Configuration
@@ -199,7 +202,7 @@ show bgp neighbor
 
 ## eBGP (Exterior)
 
-Comming Soon !!!
+# Comming Soon !!!
 
 # MPLS L2VPN
 
@@ -210,15 +213,6 @@ set protocols l2circuit neighbor [DESTINATION_LOOPBACK] interface ge-0/0/1.10 vi
 set protocols l2circuit neighbor [DESTINATION_LOOPBACK] interface ge-0/0/1.10 description L2VPN
 set protocols l2circuit neighbor [DESTINATION_LOOPBACK] interface ge-0/0/1.10 no-control-word
 set protocols l2circuit neighbor [DESTINATION_LOOPBACK] interface ge-0/0/1.10 ignore-encapsulation-mismatch
-```
-Port Service (Trunk Port)
-```
-set interfaces ge-0/0/1 flexible-vlan-tagging
-set interfaces ge-0/0/1 mtu 1900
-set interfaces ge-0/0/1 encapsulation flexible-ethernet-services
-set interfaces ge-0/0/1 unit 10 description L2VPN
-set interfaces ge-0/0/1 unit 10 encapsulation vlan-ccc
-set interfaces ge-0/0/1 unit 10 vlan-id 10
 ```
 Port Service (Access Port)
 ```
@@ -235,12 +229,149 @@ show l2circuit connections
 ```
 
 ## VPLS (Virtual Private LAN Service)
+VPLS Instance
+```
+set routing-instances NODE-XYZ instance-type vpls 
+set routing-instances NODE-XYZ interface ge-0/0/4.0 
+set routing-instances NODE-XYZ protocols vpls encapsulation-type ethernet 
+set routing-instances NODE-XYZ protocols vpls no-control-word 
+set routing-instances NODE-XYZ protocols vpls no-tunnel-services 
+set routing-instances NODE-XYZ protocols vpls vpls-id 234 
+set routing-instances NODE-XYZ protocols vpls mtu 1500 
+set routing-instances NODE-XYZ protocols vpls ignore-mtu-mismatch 
+set routing-instances NODE-XYZ protocols vpls ignore-encapsulation-mismatch 
+set routing-instances NODE-XYZ protocols vpls neighbor 192.168.0.2 switchover-delay 5000 
+set routing-instances NODE-XYZ protocols vpls neighbor 192.168.0.2 revert-time 60 
+set routing-instances NODE-XYZ protocols vpls neighbor 192.168.0.2 backup-neighbor 192.168.0.1 standby 
+```
+Port Service (Access)
+```
+set interfaces ge-0/0/4 unit 0 description "HO-XYZ" 
+set interfaces ge-0/0/4 mtu 1500 
+set interfaces ge-0/0/4 encapsulation ethernet-vpls 
+```
 
 # MPLS L3VPN
 
 ## VRF (Virtual Routing Forwarding)
+VPN Policy
+```
+set policy-options policy-statement VPN-SERVER-XYZ-EXPORT term 1 then community add target:65000:100 
+set policy-options policy-statement VPN-SERVER-XYZ-EXPORT term 1 then accept 
+set policy-options policy-statement VPN-SERVER-XYZ-IMPORT term 1 from community target:65000:100 
+set policy-options policy-statement VPN-SERVER-XYZ-IMPORT term 1 then accept 
+set policy-options policy-statement VPN-SERVER-XYZ-IMPORT term other then reject 
+set policy-options community target:65000:100 members target:65000:100
+```
+VPN Instance
+```
+set routing-instances VPN-SERVER-XYZ instance-type vrf 
+set routing-instances VPN-SERVER-XYZ interface ge-0/0/1.0 
+set routing-instances VPN-SERVER-XYZ route-distinguisher 65000:100 
+set routing-instances VPN-SERVER-XYZ vrf-import VPN-SERVER-XYZ-IMPORT 
+set routing-instances VPN-SERVER-XYZ vrf-export VPN-SERVER-XYZ-EXPORT 
+set routing-instances VPN-SERVER-XYZ vrf-table-label 
+```
+Port Service (Access)
+```
+set interfaces ge-0/0/1 unit 0 description "to SERVER-XYZ" 
+set interfaces ge-0/0/1 encapsulation ethernet 
+set interfaces ge-0/0/1 mtu 1500 
+set interfaces ge-0/0/1 unit 0 family inet address 192.110.0.1/30 
+```
+Verification
+```
 
-## VRF Option AS-Overide
+```
+
+## VRF Option Inter AS (AS-Overide)
+VPN Policy
+```
+set policy-options policy-statement VPN-SERVER-12-EXPORT term 1 then community add target:65000:200 
+set policy-options policy-statement VPN-SERVER-12-EXPORT term 1 then accept 
+set policy-options policy-statement VPN-SERVER-12-IMPORT term 1 from community target:65000:200 
+set policy-options policy-statement VPN-SERVER-12-IMPORT term 1 then accept 
+set policy-options policy-statement VPN-SERVER-12-IMPORT term other then reject 
+set policy-options community target:65000:200 members target:65000:200 
+```
+VPN Instance
+```
+set routing-instances VPN-SERVER-12 instance-type vrf 
+set routing-instances VPN-SERVER-12 interface ge-0/0/3.0 
+set routing-instances VPN-SERVER-12 route-distinguisher 65000:200 
+set routing-instances VPN-SERVER-12 vrf-import VPN-SERVER-12-IMPORT 
+set routing-instances VPN-SERVER-12 vrf-export VPN-SERVER-12-EXPORT 
+set routing-instances VPN-SERVER-12 vrf-table-label
+```
+Redistribute BGP
+```
+set routing-instances VPN-SERVER-12 protocol bgp group VPN-SERVER-12 type external 
+set routing-instances VPN-SERVER-12 protocol bgp group VPN-SERVER-12 family inet unicast 
+set routing-instances VPN-SERVER-12 protocol bgp group VPN-SERVER-12 neighbor 172.100.0.2 
+set routing-instances VPN-SERVER-12 protocol bgp group VPN-SERVER-12 neighbor 172.100.0.2 as-override
+set routing-instances VPN-SERVER-12 protocol bgp group VPN-SERVER-12 neighbor 172.100.0.2 peer-as 65488 
+set routing-instances VPN-SERVER-12 protocol bgp group VPN-SERVER-12 neighbor 172.100.0.2 local-as 65000 
+set routing-instances VPN-SERVER-12 protocol bgp group VPN-SERVER-12 neighbor 172.100.0.2 export EXPORT-AS65488 
+set policy-options policy-statement EXPORT-AS65488 term 1 from route-filter 202.20.0.0/30 exact 
+set policy-options policy-statement EXPORT-AS65488 term 1 then accept 
+set policy-options policy-statement EXPORT-AS65488 term other then reject 
+```
+Port Service (Access)
+```
+set interfaces ge-0/0/3 unit 0 description "to SERVER-12" 
+set interfaces ge-0/0/3 encapsulation ethernet 
+set interfaces ge-0/0/3 mtu 1500 
+set interfaces ge-0/0/3 unit 0 family inet address 172.100.0.1/30 
+```
+Verification
+```
+
+```
+
+## VRF Option Inter OSPF (Sham-Link)
+VPN Policy
+```
+set policy-options policy-statement VPN-OSPF-AB-EXPORT term 1 then community add target:65000:300 
+set policy-options policy-statement VPN-OSPF-AB-EXPORT term 1 then accept 
+set policy-options policy-statement VPN-OSPF-AB-IMPORT term 1 from community target:65000:300 
+set policy-options policy-statement VPN-OSPF-AB-IMPORT term 1 then accept 
+set policy-options policy-statement VPN-OSPF-AB-IMPORT term other then reject 
+set policy-options community target:65000:300 members target:65000:300 
+```
+VPN Instance
+```
+set routing-instances VPN-OSPF-AB instance-type vrf 
+set routing-instances VPN-OSPF-AB interface ge-0/0/3.0 
+set routing-instances VPN-OSPF-AB interface lo0.1 
+set routing-instances VPN-OSPF-AB route-distinguisher 65000:300 
+set routing-instances VPN-OSPF-AB vrf-import VPN-OSPF-AB-IMPORT 
+set routing-instances VPN-OSPF-AB vrf-export VPN-OSPF-AB-EXPORT 
+set routing-instances VPN-OSPF-AB vrf-table-label 
+set routing-instances VPN-OSPF-AB protocol ospf export EXPORT-OSPF-888 
+set routing-instances VPN-OSPF-AB protocol ospf sham-link local 103.22.0.253 
+set routing-instances VPN-OSPF-AB protocol ospf area 0.0.3.120 sham-link-remote 103.32.0.253 metric 10 
+set routing-instances VPN-OSPF-AB protocol ospf area 0.0.3.120 interface ge-0/0/3.0 
+set routing-instances VPN-OSPF-AB protocol ospf area 0.0.3.120 interface lo0.1 
+```
+Redistribute OSPF
+```
+set policy-options policy-statement EXPORT-OSPF-888 term 1 from protocol bgp 
+set policy-options policy-statement EXPORT-OSPF-888 term 1 then accept 
+set policy-options policy-statement EXPORT-OSPF-888 term other then reject 
+```
+Port Service (Access)
+```
+set interfaces lo0 unit 1 family inet address 103.22.0.253/32 
+set interfaces ge-0/0/3 unit 0 description "to NODE-A" 
+set interfaces ge-0/0/3 encapsulation ethernet 
+set interfaces ge-0/0/3 mtu 1500 
+set interfaces ge-0/0/3 unit 0 family inet address 10.0.0.1/30 
+```
+Verification
+```
+
+```
+
 
 # Additional Resources
 
