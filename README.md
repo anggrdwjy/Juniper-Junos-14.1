@@ -210,7 +210,7 @@ show bgp neighbor
 
 # MPLS L2VPN
 
-## L2 Circuit
+## L2 Circuit Example
 L2 Circuit Configuration Example
 ```
 set protocols l2circuit neighbor [DESTINATION_LOOPBACK] interface ge-0/0/1.10 virtual-circuit-id 10
@@ -232,8 +232,8 @@ Verification
 show l2circuit connections
 ```
 
-## VPLS (Virtual Private LAN Service)
-VPLS Configuration Example
+## VPLS (Virtual Private LAN Service) Example
+VPLS Configuration
 ```
 set routing-instances NODE-XYZ instance-type vpls 
 set routing-instances NODE-XYZ interface ge-0/0/4.0 
