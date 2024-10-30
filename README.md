@@ -372,19 +372,14 @@ Verification
 # Additional Resources
 
 ## Books / Manuals
-- [Juniper MPLS and Service by AW](https://drive.google.com/file/d/1RCGwMK9uCFW9ju0MRgpeNHQmXs1LZVmZ/view?usp=drive_link)
+- [Juniper MPLS and Service by Anggarda Saputra Wijaya](https://drive.google.com/file/d/1RCGwMK9uCFW9ju0MRgpeNHQmXs1LZVmZ/view?usp=drive_link)
 - [Junos CLI Guide](https://drive.google.com/file/d/1nTZlcABOvOkjPxvqIL1U7ZGQMirrm5XA/view?usp=drive_link)
 - [Workbook Juniper Logical System and Routing Protocols](https://drive.google.com/file/d/1OL0xcsyCosylRMwiZLvtqNWKAi1-9jbm/view?usp=drive_link)
 - [Advanced Juniper Networks Routing](https://drive.google.com/file/d/1sCcvM2h_k7ehJqFLzxEikmGd4bb5kXGe/view?usp=drive_link)
-- []()
-- []()
-- []()
-- []()
+- [JNCIA Study Guide](https://drive.google.com/file/d/1NV1KoVSsw8fiSgKXCKXpbGs9ZgbirCZa/view?usp=drive_link)
+- [JNCIS Study Guide](https://drive.google.com/file/d/1C_fswdTmXDRz1OTheNgJx9UqizCH2BJf/view?usp=drive_link)
+- [JNCIP Study Guide](https://drive.google.com/file/d/1To8lD-9dcexJhC2-OLYGCgWqOXPRYZeN/view?usp=drive_link)
+- [JNCIE Study Guide](https://drive.google.com/file/d/1W2PyTqB0W2p8BwgFwejNcJ624g54hepi/view?usp=drive_link)
   
-## Youtube
-- []()
-- []()
-- []()
-- []()
-- []()
-- []()
+## Youtube Playlist
+- [Juniper Router vMX Junos 14.1 Routing OSPF, MPLS, BGP, and Services](https://www.youtube.com/playlist?list=PLy064HwEq9IyTJ9UQzxQ3GHHSa_S7d9DG)
