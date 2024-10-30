@@ -201,8 +201,7 @@ show bgp neighbor
 ```
 
 ## eBGP (Exterior)
-
-# Comming Soon !!!
+Comming Soon !!!
 
 # MPLS L2VPN
 
