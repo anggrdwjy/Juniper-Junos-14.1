@@ -1,4 +1,4 @@
-This repository is a guide for learn Juniper Junos® OS resources and references to practice configuration. 
+# This repository is a guide for learn Juniper Junos® OS resources and references to practice configuration. 
 
 # Initiation Command
 
@@ -14,8 +14,6 @@ This repository is a guide for learn Juniper Junos® OS resources and references
 | show route summary | show all route |
 | show bgp summary | show bgp all connected | 
 | show bgp neighbor | show bgp neighbor connected | 
-| show route receive-protocol bgp `IP_Destination` |
-| show route advertising-protocol bgp `IP_Destination` |
 | show ospf neighbor | show ospf neighbor connected | 
 | show ospf interface | show ospf interface configuration |
 | show mpls interface | show mpls interface configuration | 
