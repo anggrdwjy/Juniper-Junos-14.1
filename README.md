@@ -13,7 +13,7 @@
   * [Port Interface Configuration](#Port-Interface-Configuration)
 * [Routing OSPF Configuration](#Routing-OSPF-Configuration)
   * [Routing OSPF Configuration](#Routing-OSPF-Configuration)
-* [MPLS LDP, LLDP, RSVP Configuration](#MPLS-LDP,-LLDP,-RSVP-Configuration)
+* [MPLS LDP, LLDP, RSVP Configuration](#MPLS-LDP-LLDP-RSVP-Configuration)
   * [MPLS \(Multi-Protocol Labeling Switching)](#MPLS-(Multi-Protocol-Labeling-Switching))
   * [LDP \(Label Distribution Protocol)](#LDP-(Label-Distribution-Protocol))
   * [LLDP \(Link Layer Discovery Protocol)](#LLDP-(Link-Layer-Discovery-Protocol))
