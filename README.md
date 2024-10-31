@@ -1,7 +1,7 @@
 # This repository is a guide for learn Juniper Junos® OS resources and references to practice configuration. 
 
 ## Summary
-* [Command References Juniper Junos® OS](#Command-ReferencesJuniper-Junos®-OS)
+* [Command References](#Command-References)
 * [Basic Configuration](#Basic-Configuration)
   * [Hostname Device](#Hostname-Device)
   * [Time Clock Device](#Time-Clock-Device)
@@ -32,7 +32,7 @@
   * [Books / Manuals](#Books-/-Manuals)
   * [Youtube Playlist](#Youtube-Playlist)
 
-## Command References Juniper Junos® OS
+## Command References
 
 | Command | Description |
 | ---- | ----- |
