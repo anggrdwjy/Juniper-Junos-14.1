@@ -1,4 +1,4 @@
-# This repository is a guide for learn Juniper Junos® OS resources and references to practice configuration. 
+# This repository is a guide for learn Juniper Junos® OS resources and references to practice configuration Router. 
 
 ## Summary
 * [Command References](#Command-References)
