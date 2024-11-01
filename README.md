@@ -20,7 +20,6 @@
   * [RSVP \(Resource Reservation Protocol)](#RSVP-(Resource-Reservation-Protocol))
 * [BGP Configuration](#BGP-Configuration)
   * [iBGP \(Interior)](#iBGP-(Interior))
-  * [eBGP \(Exterior) Comming Soon :fire:](#eBGP-(Exterior))
 * [MPLS L2VPN](#MPLS-L2VPN)
   * [L2 Circuit](#L2-Circuit)
   * [VPLS \(Virtual Private LAN Service)](#VPLS-(Virtual-Private-LAN-Service))
@@ -252,11 +251,6 @@ show bgp summary
 show bgp neighbor
 ```
 
-## eBGP (Exterior)
-```
-!!! Comming Soon !!!
-```
-
 # MPLS L2VPN
 
 ## L2 Circuit Example
@@ -332,10 +326,6 @@ set interfaces ge-0/0/1 encapsulation ethernet
 set interfaces ge-0/0/1 mtu 1500 
 set interfaces ge-0/0/1 unit 0 family inet address 192.110.0.1/30 
 ```
-Verification
-```
-
-```
 
 ## VRF Option Inter AS (AS-Overide) Example
 VPN Policy
@@ -376,10 +366,6 @@ set interfaces ge-0/0/3 encapsulation ethernet
 set interfaces ge-0/0/3 mtu 1500 
 set interfaces ge-0/0/3 unit 0 family inet address 172.100.0.1/30 
 ```
-Verification
-```
-
-```
 
 ## VRF Option Inter OSPF (Sham-Link) Example
 VPN Policy
@@ -419,10 +405,6 @@ set interfaces ge-0/0/3 unit 0 description "to NODE-A"
 set interfaces ge-0/0/3 encapsulation ethernet 
 set interfaces ge-0/0/3 mtu 1500 
 set interfaces ge-0/0/3 unit 0 family inet address 10.0.0.1/30 
-```
-Verification
-```
-
 ```
 
 # Additional Resources
