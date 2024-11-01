@@ -51,8 +51,11 @@
 | show route summary | show all route |
 | show bgp summary | show bgp all connected | 
 | show bgp neighbor | show bgp neighbor connected | 
+| show bgp summary instance [VRF_NAME] | show bgp all connected from VRF |
 | show ospf neighbor | show ospf neighbor connected | 
 | show ospf interface | show ospf interface configuration |
+| show ospf interface instance [VRF_NAME] | |
+| show ospf neighbor instance [VRF_NAME] | |
 | show mpls interface | show mpls interface configuration | 
 | show mpls lsp brief | show mpls lsp connected |
 | show lldp neighbors | show lldp neighbor connected |
@@ -67,6 +70,16 @@
 | request system configuration rescue save | Active File System |
 | show route forwarding-table family inet | show route forwarding |
 | show route forwarding-table family mpls | show route forwarding mpls |
+| show route forwarding-table family vpls | show route forwarding vpls |
+| show route forwarding-table vpn [VRF_NAME] | show route forwarding vpn |
+| show route table [VRF_NAME].inet.0 | show routing table vpn |
+| show l2circuit connections | show l2circuit neighbor connected |
+| show vpls connections | show vpls neighbor connected |
+| show vpls mac-table brief | show mac address table in vpls |
+| ping [DESTINATION_IP] source [SOURCE_IP] | ping point to point |
+| ping routing-instance [VRF_NAME] [DESTINATION_IP] source [SOURCE_IP] count 5 | ping vpn point to point |
+| traceroute [DESTINATION_IP] source [SOURCE_IP] | trace route point to point |
+
 
 # Basic Configuration
 
