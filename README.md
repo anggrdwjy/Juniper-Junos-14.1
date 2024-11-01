@@ -8,8 +8,14 @@
   * [Root Authentication Device](#Root-Authentication-Device)
   * [Username and Password](Username-and-Password)
   * [System Service](#System-Service)
+  * [NTP \(Network Time Protocol)](#NTP-(Network-Time-Protocol)
+  * [SNMP \(Simple Network Management Protocol)](#SNMP-(Simple-Network-Management-Protocol))
 * [Interface Configuration](#Interface-Configuration)
   * [Loopback Configuration](#Loopback-Configuration)
+  * [Port Interface Configuration](#Port-Interface-Configuration)
+* [LACP \(Link Aggregation Control Protocol)](#LACP-(Link-Aggregation-ControlProtocol))
+  * [LACP Configuration](#LACP_Configuration)
+  * [VLAN Tagging LACP](#VLAN_Tagging_LACP)
   * [Port Interface Configuration](#Port-Interface-Configuration)
 * [Routing OSPF Configuration](#Routing-OSPF-Configuration)
   * [Routing OSPF Configuration](#Routing-OSPF-Configuration)
@@ -101,6 +107,26 @@ set system services ssh rate-limit 5
 set system services telnet
 ```
 
+## NTP (Network Time Protocol)
+NTP Configuration
+```
+set system ntp boot-server [NTP_SERVER_MAIN]
+set system ntp server [NTP_SERVER_MAIN] prefer
+set system ntp server [NTP_SERVER_BACKUP]
+set system ntp source-address [IP_LOOPBACK]
+```
+
+## SNMP (Simple Network Management Protocol)
+SNMP Configuration
+```
+set snmp description snmpfilter
+set snmp location [HOSTNAME]
+set snmp contact [MAIL@MAIL.COM]
+set snmp community [SNMP-COMM] authorization read-only
+set snmp community [SNMP-COMM] clients [TARGET_IP_A]
+set snmp community [SNMP-COMM] clients [TARGET_IP_B]
+set snmp community [SNMP-COMM] clients [TARGET_IP_C]
+```
 # Interface Configuration
 
 ## Interface
@@ -111,10 +137,10 @@ set interfaces lo0 unit 0 family inet address [IP_ADDRESS_NETMASK]
 ```
 Port Interface Configuration
 ```
-set interfaces ge-0/0/0 mtu [1900 - 9200]
-set interfaces ge-0/0/0 unit 0 description [DESCRIPTION]
-set interfaces ge-0/0/0 unit 0 family inet address [IP_ADDRESS_NETMASK]
-set interfaces ge-0/0/0 unit 0 family mpls
+set interfaces [PORT_INTERFACE] mtu [1900 - 9200]
+set interfaces [PORT_INTERFACE] unit 0 description [DESCRIPTION]
+set interfaces [PORT_INTERFACE] unit 0 family inet address [IP_ADDRESS_NETMASK]
+set interfaces [PORT_INTERFACE] unit 0 family mpls
 ```
 Verification
 ```
@@ -122,11 +148,48 @@ show interface terse | grep up
 show interface terse | grep down
 show interface brief
 ```
+## LACP (Link Aggregation Control Protocol)
+LACP Configuration
+```
+set interfaces ae3 description [DESCRIPTION]
+set interfaces ae3 flexible-vlan-tagging
+set interfaces ae3 mtu [1500 - 9000]
+set interfaces ae3 aggregated-ether-options minimum-links 1
+set interfaces ae3 aggregated-ether-options link-speed [BANDWIDTH_REFERENCE]
+set interfaces ae3 aggregated-ether-options lacp active
+```
+VLAN Tagging LACP
+```
+set interfaces ae3 unit 123 description [DESCRIPTION]
+set interfaces ae3 unit 123 vlan-id 123
+set interfaces ae3 unit 123 family inet filter input [POLICY_FILTER]
+set interfaces ae3 unit 123 family inet address [X.X.X.X/YY]
+```
+Port Interface Configuration
+```
+set interfaces [PORT_INTERFACE] description [DESCRIPTION]
+set interfaces [PORT_INTERFACE] gigether-options no-flow-control
+set interfaces [PORT_INTERFACE] gigether-options no-auto-negotiation
+set interfaces [PORT_INTERFACE] gigether-options 802.3ad ae3
+```
 
 # Routing OSPF Configuration
 
 ## OSPF (Open Shortest Path First)
-
+Optional OSPF Protocol
+```
+set protocols ospf traffic-engineering
+set protocols ospf reference-bandwidth [CAPACITY_BANDWIDTH]
+```
+Optional Policy OSPF Protocol
+```
+set policy-options policy-statement [OSPF-TERM] term 1 from route-filter [X.X.X.X/YY] exact
+set policy-options policy-statement [OSPF-TERM] term 1 from route-filter [X.X.X.X/YY] exact
+set policy-options policy-statement [OSPF-TERM] term 1 from route-filter [X.X.X.X/YY] exact
+set policy-options policy-statement [OSPF-TERM] term 1 then accept
+set policy-options policy-statement [OSPF-TERM] term 2 then reject
+set protocols ospf export [OSPF-TERM]
+```
 Routing OSPF Single Area / Backbone Area Configuration
 ```
 set protocols ospf area [ID_AREA] interface [PORT] interface-type p2p
@@ -163,6 +226,7 @@ show ospf neighbor
 ## MPLS (Multi-Protocol Labeling Switching)
 MPLS Interface Configuration
 ```
+set protocols mpls no-propagate-ttl
 set protocols mpls interface [PORT_INTERFACE]
 set protocols mpls interface [LOOPBACK]
 ```
