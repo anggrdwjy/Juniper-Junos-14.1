@@ -232,6 +232,7 @@ set protocols mpls interface [LOOPBACK]
 ```
 Verification
 ```
+show route forwarding-table family mpls
 show mpls interface brief
 show mpls lsp brief
 
@@ -361,6 +362,12 @@ set interfaces ge-0/0/4 unit 0 description "HO-XYZ"
 set interfaces ge-0/0/4 mtu 1500 
 set interfaces ge-0/0/4 encapsulation ethernet-vpls 
 ```
+Verification
+```
+show vpls connections
+show vpls mac-table brief
+show route forwarding-table family vpls
+```
 
 # MPLS L3VPN
 
@@ -430,6 +437,15 @@ set interfaces ge-0/0/3 encapsulation ethernet
 set interfaces ge-0/0/3 mtu 1500 
 set interfaces ge-0/0/3 unit 0 family inet address 172.100.0.1/30 
 ```
+Verification
+```
+show route table [VRF_NAME].inet.0
+show route forwarding-table vpn [VRF_NAME]
+ping routing-instance [VRF_NAME] [DESTINATION_IP] source [SOURCE_IP] count 5
+show bgp summary instance [VRF_NAME]
+ping [DESTINATION_IP] source [SOURCE_IP]
+traceroute [DESTINATION_IP] source [SOURCE_IP]
+```
 
 ## VRF Option Inter OSPF (Sham-Link) Example
 VPN Policy
@@ -469,6 +485,13 @@ set interfaces ge-0/0/3 unit 0 description "to NODE-A"
 set interfaces ge-0/0/3 encapsulation ethernet 
 set interfaces ge-0/0/3 mtu 1500 
 set interfaces ge-0/0/3 unit 0 family inet address 10.0.0.1/30 
+```
+Verification
+```
+show ospf interface instance [VRF_NAME]
+show ospf neighbor instance [VRF_NAME]
+ping [DESTINATION_IP] source [SOURCE_IP]
+traceroute [DESTINATION_IP] source [SOURCE_IP]
 ```
 
 # Additional Resources
