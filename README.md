@@ -17,6 +17,8 @@
   * [LACP Configuration](#LACP_Configuration)
   * [VLAN Tagging LACP](#VLAN_Tagging_LACP)
   * [Port Interface Configuration](#Port-Interface-Configuration)
+* [Static Routing Configuration](#Static-Routing-Configuration)
+  * [Static Routing](#Static-Routing)
 * [Routing OSPF Configuration](#Routing-OSPF-Configuration)
   * [Routing OSPF Configuration](#Routing-OSPF-Configuration)
 * [MPLS LDP, LLDP, RSVP Configuration](#MPLS-LDP-LLDP-RSVP-Configuration)
@@ -24,7 +26,7 @@
   * [LDP \(Label Distribution Protocol)](#LDP-(Label-Distribution-Protocol))
   * [LLDP \(Link Layer Discovery Protocol)](#LLDP-(Link-Layer-Discovery-Protocol))
   * [RSVP \(Resource Reservation Protocol)](#RSVP-(Resource-Reservation-Protocol))
-* [BGP Configuration](#BGP-Configuration)
+* [Routing BGP Configuration](#Routing-BGP-Configuration)
   * [iBGP \(Interior)](#iBGP-(Interior))
 * [MPLS L2VPN](#MPLS-L2VPN)
   * [L2 Circuit](#L2-Circuit)
@@ -79,6 +81,8 @@
 | ping [DESTINATION_IP] source [SOURCE_IP] | ping point to point |
 | ping routing-instance [VRF_NAME] [DESTINATION_IP] source [SOURCE_IP] count 5 | ping vpn point to point |
 | traceroute [DESTINATION_IP] source [SOURCE_IP] | trace route point to point |
+| commit | save configuration |
+| commit check | check and save configuration |
 
 
 # Basic Configuration
@@ -193,6 +197,19 @@ set interfaces [PORT_INTERFACE] gigether-options no-flow-control
 set interfaces [PORT_INTERFACE] gigether-options no-auto-negotiation
 set interfaces [PORT_INTERFACE] gigether-options 802.3ad ae3
 ```
+# Static Routing Configuration
+
+## Static Routing
+Static Routing Configuration
+```
+set routing-options static route [NETWORK_DESTINATION] 
+set routing-options static route [NETWORK_DESTINATION] next-hop [NEXT_HOP]
+```
+Optional 
+```
+set routing-options static route [NETWORK_DESTINATION] discard
+set routing-options static route [NETWORK_DESTINATION] preference 210
+```
 
 # Routing OSPF Configuration
 
@@ -297,7 +314,7 @@ Verification
 show rsvp interface
 ```
 
-# BGP Configuration
+# Routing BGP Configuration
 
 ## iBGP (Interior) Example
 BGP Configuration to Route Reflector Client
