@@ -41,6 +41,8 @@
 
 | Command | Description |
 | ---- | ----- |
+| show configuration system | show configuration in system routers |
+| show configuration interface | show configuration in all interface |
 | show interfaces descriptions | show description in interface |  
 | show interfaces brief | show active port interface |
 | show interfaces terse | show interface up/down |
@@ -53,12 +55,18 @@
 | show ospf interface | show ospf interface configuration |
 | show mpls interface | show mpls interface configuration | 
 | show mpls lsp brief | show mpls lsp connected |
+| show lldp neighbors | show lldp neighbor connected |
+| show lldp detail | show detail lldp |
 | show ldp session | show all ldp connected |
 | show ldp interface | show ldp interface configuration |
 | show ldp neighbor | show ldp neighbor connected |
 | show rsvp session | show rsvp connected |
 | show rsvp interface | show rsvp interface configuration |
 | show rsvp neighbor | show rsvp neighbor connected |
+| request system snapshot | Backup Currently Running |
+| request system configuration rescue save | Active File System |
+| show route forwarding-table family inet | show route forwarding |
+| show route forwarding-table family mpls | show route forwarding mpls |
 
 # Basic Configuration
 
@@ -248,9 +256,9 @@ set protocols ldp session [IP_NEIGHBOR_3] authentication-key [PASSWORD]
 ```
 Verification
 ```
-run show ldp interface
-run show ldp neighbor
-run show ldp session
+show ldp interface
+show ldp neighbor
+show ldp session
 ```
 ## LLDP (Link Layer Discovery Protocol)
 LLDP Configuration
