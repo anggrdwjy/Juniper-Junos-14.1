@@ -8,7 +8,7 @@
   * [Root Authentication Device](#Root-Authentication-Device)
   * [Username and Password](Username-and-Password)
   * [System Service](#System-Service)
-  * [NTP \(Network Time Protocol)](#NTP-(Network-Time-Protocol)
+  * [NTP \(Network Time Protocol)](#NTP-(Network-Time-Protocol))
   * [SNMP \(Simple Network Management Protocol)](#SNMP-(Simple-Network-Management-Protocol))
 * [Interface Configuration](#Interface-Configuration)
   * [Loopback Configuration](#Loopback-Configuration)
