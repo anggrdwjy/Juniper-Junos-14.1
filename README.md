@@ -3,7 +3,7 @@
 ## Summary Of Repository
 * [Command References](#Command-References)
 * [Basic Configuration](#Basic-Configuration)
-* [Hostname](#Hostname)
+  * [Hostname](#Hostname)
   * [Time Clock](#Time-Clock)
   * [Root-Authentication](#Root-Authentication)
   * [Username and Password](#Username-and-Password)
