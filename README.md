@@ -27,7 +27,7 @@
   * [LLDP \(Link Layer Discovery Protocol)](#LLDP-(Link-Layer-Discovery-Protocol))
   * [RSVP \(Resource Reservation Protocol)](#RSVP-(Resource-Reservation-Protocol))
 * [Routing Exterior](#Routing-Exterior)
-  * [iBGP (Interior) Example](#iBGP (Interior) Example)
+  * [iBGP \(Interior) Example](#iBGP (Interior) Example)
 * [MPLS L2VPN](#MPLS-L2VPN)
   * [L2 Circuit Example](#L2-Circuit-Example)
   * [VPLS \(Virtual Private LAN Service) Example](#VPLS-(Virtual-Private-LAN-Service)-Example)
