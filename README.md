@@ -1,46 +1,46 @@
-# This repository is a guide for learn Juniper Junos® OS resources and references to practice configuration Router. 
+# This repository is a guide for learn Juniper Junos® OS resources and references to practice configuration Router.
 
-## Summary
+## Summary Of Repository
 * [Command References](#Command-References)
 * [Basic Configuration](#Basic-Configuration)
-  * [Hostname Device](#Hostname-Device)
-  * [Time Clock Device](#Time-Clock-Device)
-  * [Root Authentication Device](#Root-Authentication-Device)
-  * [Username and Password](Username-and-Password)
+* [Hostname](#Hostname)
+  * [Time Clock](#Time-Clock)
+  * [Root-Authentication](#Root-Authentication)
+  * [Username and Password](#Username-and-Password)
   * [System Service](#System-Service)
   * [NTP \(Network Time Protocol)](#NTP-(Network-Time-Protocol))
   * [SNMP \(Simple Network Management Protocol)](#SNMP-(Simple-Network-Management-Protocol))
 * [Interface Configuration](#Interface-Configuration)
-  * [Loopback Configuration](#Loopback-Configuration)
-  * [Port Interface Configuration](#Port-Interface-Configuration)
-* [LACP \(Link Aggregation Control Protocol)](#LACP-(Link-Aggregation-ControlProtocol))
-  * [LACP Configuration](#LACP_Configuration)
-  * [VLAN Tagging LACP](#VLAN_Tagging_LACP)
-  * [Port Interface Configuration](#Port-Interface-Configuration)
-* [Static Routing Configuration](#Static-Routing-Configuration)
+  * [Loopback](#Loopback)
+  * [Interface](#Interface)
+* [LACP \(Link Aggregation Control Protocol)](#LACP-(Link-Aggregation-Control-Protocol))
+  * [LACP](#LACP)
+  * [VLAN Tagging](#VLAN-Tagging)
+  * [Port Interface](#Port-Interface)
+* [Static Route](#Static-Route)
   * [Static Routing](#Static-Routing)
-* [Routing OSPF Configuration](#Routing-OSPF-Configuration)
-  * [Routing OSPF Configuration](#Routing-OSPF-Configuration)
-* [MPLS LDP, LLDP, RSVP Configuration](#MPLS-LDP-LLDP-RSVP-Configuration)
+* [Routing Interior](#Routing-Interior)
+  * [OSPF \(Open Shortest Path First)](#OSPF-(Open-Shortest-Path-First))
+* [MPLS ,LDP, LLDP, RSVP](#MPLS-,LDP,-LLDP,-RSVP)
   * [MPLS \(Multi-Protocol Labeling Switching)](#MPLS-(Multi-Protocol-Labeling-Switching))
   * [LDP \(Label Distribution Protocol)](#LDP-(Label-Distribution-Protocol))
   * [LLDP \(Link Layer Discovery Protocol)](#LLDP-(Link-Layer-Discovery-Protocol))
   * [RSVP \(Resource Reservation Protocol)](#RSVP-(Resource-Reservation-Protocol))
-* [Routing BGP Configuration](#Routing-BGP-Configuration)
-  * [iBGP \(Interior)](#iBGP-(Interior))
+* [Routing Exterior](#Routing-Exterior)
+  * [iBGP (Interior) Example](#iBGP (Interior) Example)
 * [MPLS L2VPN](#MPLS-L2VPN)
-  * [L2 Circuit](#L2-Circuit)
-  * [VPLS \(Virtual Private LAN Service)](#VPLS-(Virtual-Private-LAN-Service))
+  * [L2 Circuit Example](#L2-Circuit-Example)
+  * [VPLS \(Virtual Private LAN Service) Example](#VPLS-(Virtual-Private-LAN-Service)-Example)
 * [MPLS L3VPN](#MPLS-L3VPN)
-  * [VRF \(Virtual Routing Forwarding)](#VRF-(Virtual-Routing-Forwarding))
-  * [VRF Option Inter AS \(AS-Overide)](#VRF-Option-Inter-AS-(AS-Overide))
-  * [VRF Option Inter OSPF \(Sham-Link)](#VRF-Option-Inter-OSPF-(Sham-Link))
+  * [VRF \(Virtual Routing Forwarding) Example](#VRF-(Virtual-Routing-Forwarding)-Example)
+  * [VRF Option Inter AS \(AS-Overide) Example](#VRF-Option-Inter-AS-(AS-Overide)-Example)
+  * [VRF Option Inter OSPF \(Sham-Link) Example](#VRF-Option-Inter-OSPF-(Sham-Link)-Example)
 * [Additional Resources](#Additional-Resources)
   * [Books / Manuals](#Books-/-Manuals)
   * [Youtube Playlist](#Youtube-Playlist)
 
-## Command References
 
+## Command References
 | Command | Description |
 | ---- | ----- |
 | show configuration system | show configuration in system routers |
@@ -84,25 +84,20 @@
 | commit | save configuration |
 | commit check | check and save configuration |
 
-
 # Basic Configuration
-
-## Hostname Device
+## Hostname
 ```
 set system host-name "[DEVICE_NAME]"
 ```
-
-## Time Clock Device
+## Time Clock
 ```
 set system time-zone Asia/Jakarta
 ```
-
-## Root Authentication Device
+## Root-Authentication
 ```
 set system root-authentication password => ENTER
 [password]
 ```
-
 ## Username and Password
 Admin User
 ```
@@ -127,11 +122,9 @@ set system login user [USERNAME] authentication password => ENTER
 Activate FTP, TELNET and SSH
 ```
 set system services ftp
-set system services ssh root-login deny
-set system services ssh rate-limit 5
+set system services ssh 
 set system services telnet
 ```
-
 ## NTP (Network Time Protocol)
 NTP Configuration
 ```
@@ -140,7 +133,6 @@ set system ntp server [NTP_SERVER_MAIN] prefer
 set system ntp server [NTP_SERVER_BACKUP]
 set system ntp source-address [IP_LOOPBACK]
 ```
-
 ## SNMP (Simple Network Management Protocol)
 SNMP Configuration
 ```
@@ -152,15 +144,15 @@ set snmp community [SNMP-COMM] clients [TARGET_IP_A]
 set snmp community [SNMP-COMM] clients [TARGET_IP_B]
 set snmp community [SNMP-COMM] clients [TARGET_IP_C]
 ```
-# Interface Configuration
 
-## Interface
+# Interface
+## Loopback
 Loopback Configuration
 ```
 set interfaces lo0 unit 0 description [DESCRIPTION]
 set interfaces lo0 unit 0 family inet address [IP_ADDRESS_NETMASK]
 ```
-Port Interface Configuration
+## Interface
 ```
 set interfaces [PORT_INTERFACE] mtu [1900 - 9200]
 set interfaces [PORT_INTERFACE] unit 0 description [DESCRIPTION]
@@ -173,7 +165,9 @@ show interface terse | grep up
 show interface terse | grep down
 show interface brief
 ```
-## LACP (Link Aggregation Control Protocol)
+
+# LACP (Link Aggregation Control Protocol)
+## LACP 
 LACP Configuration
 ```
 set interfaces ae3 description [DESCRIPTION]
@@ -183,6 +177,7 @@ set interfaces ae3 aggregated-ether-options minimum-links 1
 set interfaces ae3 aggregated-ether-options link-speed [BANDWIDTH_REFERENCE]
 set interfaces ae3 aggregated-ether-options lacp active
 ```
+## VLAN Tagging
 VLAN Tagging LACP
 ```
 set interfaces ae3 unit 123 description [DESCRIPTION]
@@ -190,44 +185,24 @@ set interfaces ae3 unit 123 vlan-id 123
 set interfaces ae3 unit 123 family inet filter input [POLICY_FILTER]
 set interfaces ae3 unit 123 family inet address [X.X.X.X/YY]
 ```
-Port Interface Configuration
+## Port Interface
 ```
 set interfaces [PORT_INTERFACE] description [DESCRIPTION]
 set interfaces [PORT_INTERFACE] gigether-options no-flow-control
 set interfaces [PORT_INTERFACE] gigether-options no-auto-negotiation
 set interfaces [PORT_INTERFACE] gigether-options 802.3ad ae3
 ```
-# Static Routing Configuration
 
+# Static Route
 ## Static Routing
 Static Routing Configuration
 ```
 set routing-options static route [NETWORK_DESTINATION] 
 set routing-options static route [NETWORK_DESTINATION] next-hop [NEXT_HOP]
 ```
-Optional 
-```
-set routing-options static route [NETWORK_DESTINATION] discard
-set routing-options static route [NETWORK_DESTINATION] preference 210
-```
 
-# Routing OSPF Configuration
-
+# Routing Interior
 ## OSPF (Open Shortest Path First)
-Optional OSPF Protocol
-```
-set protocols ospf traffic-engineering
-set protocols ospf reference-bandwidth [CAPACITY_BANDWIDTH]
-```
-Optional Policy OSPF Protocol
-```
-set policy-options policy-statement [OSPF-TERM] term 1 from route-filter [X.X.X.X/YY] exact
-set policy-options policy-statement [OSPF-TERM] term 1 from route-filter [X.X.X.X/YY] exact
-set policy-options policy-statement [OSPF-TERM] term 1 from route-filter [X.X.X.X/YY] exact
-set policy-options policy-statement [OSPF-TERM] term 1 then accept
-set policy-options policy-statement [OSPF-TERM] term 2 then reject
-set protocols ospf export [OSPF-TERM]
-```
 Routing OSPF Single Area / Backbone Area Configuration
 ```
 set protocols ospf area [ID_AREA] interface [PORT] interface-type p2p
@@ -253,14 +228,27 @@ set protocols ospf area [ID_AREA_B] interface [PORT] hello-interval 5
 set protocols ospf area [ID_AREA_B] interface [PORT] dead-interval 15
 set protocols ospf area [ID_AREA_B] interface [PORT] authentication md5 1 key [PASSWORD]
 ```
+Optional OSPF Protocol
+```
+set protocols ospf traffic-engineering
+set protocols ospf reference-bandwidth [CAPACITY_BANDWIDTH]
+```
+Optional Policy OSPF Protocol
+```
+set policy-options policy-statement [OSPF-TERM] term 1 from route-filter [X.X.X.X/YY] exact
+set policy-options policy-statement [OSPF-TERM] term 1 from route-filter [X.X.X.X/YY] exact
+set policy-options policy-statement [OSPF-TERM] term 1 from route-filter [X.X.X.X/YY] exact
+set policy-options policy-statement [OSPF-TERM] term 1 then accept
+set policy-options policy-statement [OSPF-TERM] term 2 then reject
+set protocols ospf export [OSPF-TERM]
+```
 Verification
 ```
 show ospf interface
 show ospf neighbor
 ```
 
-# MPLS LDP, LLDP, RSVP Configuration
-
+# MPLS, LDP, LLDP, RSVP
 ## MPLS (Multi-Protocol Labeling Switching)
 MPLS Interface Configuration
 ```
@@ -273,8 +261,8 @@ Verification
 show route forwarding-table family mpls
 show mpls interface brief
 show mpls lsp brief
-
 ```
+
 ## LDP (Label Distribution Protocol)
 LDP Interface and Neighbor Authentication
 ```
@@ -290,6 +278,7 @@ show ldp interface
 show ldp neighbor
 show ldp session
 ```
+
 ## LLDP (Link Layer Discovery Protocol)
 LLDP Configuration
 ```
@@ -314,8 +303,7 @@ Verification
 show rsvp interface
 ```
 
-# Routing BGP Configuration
-
+# Routing Exterior
 ## iBGP (Interior) Example
 BGP Configuration to Route Reflector Client
 ```
@@ -355,7 +343,6 @@ show bgp neighbor
 ```
 
 # MPLS L2VPN
-
 ## L2 Circuit Example
 L2 Circuit Configuration Example
 ```
@@ -364,7 +351,7 @@ set protocols l2circuit neighbor [DESTINATION_LOOPBACK] interface ge-0/0/1.10 de
 set protocols l2circuit neighbor [DESTINATION_LOOPBACK] interface ge-0/0/1.10 no-control-word
 set protocols l2circuit neighbor [DESTINATION_LOOPBACK] interface ge-0/0/1.10 ignore-encapsulation-mismatch
 ```
-Port Service (Access Port)
+Port Configuration (Access Port)
 ```
 set interfaces ge-0/0/1 flexible-vlan-tagging
 set interfaces ge-0/0/1 mtu 1900
@@ -408,7 +395,6 @@ show route forwarding-table family vpls
 ```
 
 # MPLS L3VPN
-
 ## VRF (Virtual Routing Forwarding) Example
 VPN Policy
 ```
@@ -533,7 +519,6 @@ traceroute [DESTINATION_IP] source [SOURCE_IP]
 ```
 
 # Additional Resources
-
 ## Books / Manuals
 - [Juniper MPLS and Service by Anggarda Saputra Wijaya](https://drive.google.com/file/d/1RCGwMK9uCFW9ju0MRgpeNHQmXs1LZVmZ/view?usp=drive_link)
 - [Junos CLI Guide](https://drive.google.com/file/d/1nTZlcABOvOkjPxvqIL1U7ZGQMirrm5XA/view?usp=drive_link)
