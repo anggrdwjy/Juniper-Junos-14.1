@@ -56,8 +56,8 @@
 | show bgp summary instance [VRF_NAME] | show bgp all connected from VRF |
 | show ospf neighbor | show ospf neighbor connected | 
 | show ospf interface | show ospf interface configuration |
-| show ospf interface instance [VRF_NAME] | |
-| show ospf neighbor instance [VRF_NAME] | |
+| show ospf interface instance [VRF_NAME] | show ospf interface in VRF |
+| show ospf neighbor instance [VRF_NAME] | show ospf neighbor connected in VRF |
 | show mpls interface | show mpls interface configuration | 
 | show mpls lsp brief | show mpls lsp connected |
 | show lldp neighbors | show lldp neighbor connected |
@@ -68,7 +68,7 @@
 | show rsvp session | show rsvp connected |
 | show rsvp interface | show rsvp interface configuration |
 | show rsvp neighbor | show rsvp neighbor connected |
-| request system snapshot | Backup Currently Running |
+| request system snapshot | backup currently running |
 | request system configuration rescue save | Active File System |
 | show route forwarding-table family inet | show route forwarding |
 | show route forwarding-table family mpls | show route forwarding mpls |
