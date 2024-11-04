@@ -20,9 +20,12 @@
   * [Port Interface](#Port-Interface)
 * [Static Route](#Static-Route)
   * [Static Routing](#Static-Routing)
-* [Routing Interior](#Routing-Interior)
+* [Routing OSPF](#Routing-OSPF)
   * [OSPF \(Open Shortest Path First)](#OSPF-(Open-Shortest-Path-First))
   * [BFD \(Bidirectional Forwarding Detection)](#BFD-(Bidirectional-Forwarding-Detection))
+* [Routing IS-IS \(Intermediate System to Intermediate System)](#Routing-IS-IS(Intermediate-System-to-Intermediate-System))
+  * [IS-IS NET ADDRESS](#IS-IS-NET-ADDRESS)
+  * [IS-IS Configuration](#IS-IS-Configuration)
 * [MPLS ,LDP, LLDP, RSVP](#MPLS-,LDP,-LLDP,-RSVP)
   * [MPLS \(Multi-Protocol Labeling Switching)](#MPLS-(Multi-Protocol-Labeling-Switching))
   * [LDP \(Label Distribution Protocol)](#LDP-(Label-Distribution-Protocol))
@@ -217,7 +220,7 @@ Preference Route
 set routing-options static route [NETWORK_DESTINATION] next-hop [NEXT_HOP] preference [VALUE]
 ```
 
-# Routing Interior
+# Routing OSPF
 ## OSPF (Open Shortest Path First)
 Routing OSPF Single Area / Backbone Area Configuration
 ```
@@ -269,6 +272,76 @@ BFD Configuration
 ```
 set protocols ospf area [ID_AREA_A] interface [PORT] bfd-liveness-detection minimum interval 300
 set protocols ospf area [ID_AREA_A] interface [PORT] bfd-liveness-detection multiplier 3
+```
+
+set interface [PORT] unit 0 family iso
+set interface [LOOPBACK] unit 0 family iso address 
+
+# Routing IS-IS (Intermediate System to Intermediate System)
+## IS-IS NET ADDRESS
+Example
+| IP ADDRESS |
+| --- |
+| 1 | 1 | 1 | 1 |
+| 001 | 001 | 001 | 001 |
+
+| 0010 | 0100 | 1001 |
+
+| AFI | AREA-ID | SYSTEM-ID | NSEL |
+| --- | --- | --- | --- |
+| 49 | 0001 | 0010.0100.1001 | 00 |
+
+## IS-IS Configuration
+IS-IS Level 1 (Intra-Area)
+```
+set interface [PORT] unit 0 family iso
+set interface [PORT] unit 0 family inet address [IP_ADDRESS]
+set interface [LOOPBACK] unit 0 family iso
+set interface [LOOPBACK] unit 0 family inet address [IP_ADDRESS]
+set interface [LOOPBACK] unit 0 family iso address [IS-IS_NET_ADDRESS]
+set protocol isis level 1 wide-metrics-only
+set protocol isis interface [PORT] level 2 disable
+set protocol isis interface [LOOPBACK] passive level 2 disable
+```
+IS-IS Level 2 (Inter-Area)
+```
+set interface [PORT] unit 0 family iso
+set interface [PORT] unit 0 family inet address [IP_ADDRESS]
+set interface [LOOPBACK] unit 0 family iso
+set interface [LOOPBACK] unit 0 family inet address [IP_ADDRESS]
+set interface [LOOPBACK] unit 0 family iso address [IS-IS_NET_ADDRESS]
+set protocol isis level 2 wide-metrics-only
+set protocol isis interface [PORT] level 1 disable
+set protocol isis interface [LOOPBACK] passive level 1 disable
+```
+IS-IS Level 1 & 2 Option 1 Example
+```
+set interface [PORT] unit 0 family iso
+set interface [PORT] unit 0 family inet address [IP_ADDRESS]
+set interface [LOOPBACK] unit 0 family iso
+set interface [LOOPBACK] unit 0 family inet address [IP_ADDRESS]
+set interface [LOOPBACK] unit 0 family iso address [IS-IS_NET_ADDRESS]
+set protocol isis level 1 wide-metrics-only
+set protocol isis level 2 wide-metrics-only
+set protocol isis interface [PORT] level 2 disable
+set protocol isis interface [LOOPBACK] passive level 1 disable
+```
+IS-IS Level 2 & 1 Option 2 Example
+```
+set interface [PORT] unit 0 family iso
+set interface [PORT] unit 0 family inet address [IP_ADDRESS]
+set interface [LOOPBACK] unit 0 family iso
+set interface [LOOPBACK] unit 0 family inet address [IP_ADDRESS]
+set interface [LOOPBACK] unit 0 family iso address [IS-IS_NET_ADDRESS]
+set protocol isis level 1 wide-metrics-only
+set protocol isis level 2 wide-metrics-only
+set protocol isis interface [PORT] level 1 disable
+set protocol isis interface [LOOPBACK] passive level 2 disable
+```
+IS-IS Wide Metric
+```
+set protocol isis level 1 wide-metrics-only
+set protocol isis level 2 wide-metrics-only
 ```
 
 # MPLS, LDP, LLDP, RSVP
