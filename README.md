@@ -280,12 +280,10 @@ set interface [LOOPBACK] unit 0 family iso address
 # Routing IS-IS (Intermediate System to Intermediate System)
 ## IS-IS NET ADDRESS
 Example
-| IP ADDRESS |
-| --- |
-| 1 | 1 | 1 | 1 |
-| 001 | 001 | 001 | 001 |
+| IP ADDRESS | 1 | 1 | 1 | 1 |
+| OCTET | 001 | 001 | 001 | 001 |
 
-| 0010 | 0100 | 1001 |
+| CONVERSION | 0010 | 0100 | 1001 |
 
 | AFI | AREA-ID | SYSTEM-ID | NSEL |
 | --- | --- | --- | --- |
