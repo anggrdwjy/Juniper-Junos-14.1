@@ -22,6 +22,7 @@
   * [Static Routing](#Static-Routing)
 * [Routing Interior](#Routing-Interior)
   * [OSPF \(Open Shortest Path First)](#OSPF-(Open-Shortest-Path-First))
+  * [BFD \(Bidirectional Forwarding Detection)](#BFD-(Bidirectional-Forwarding-Detection))
 * [MPLS ,LDP, LLDP, RSVP](#MPLS-,LDP,-LLDP,-RSVP)
   * [MPLS \(Multi-Protocol Labeling Switching)](#MPLS-(Multi-Protocol-Labeling-Switching))
   * [LDP \(Label Distribution Protocol)](#LDP-(Label-Distribution-Protocol))
@@ -261,6 +262,13 @@ Verification
 ```
 show ospf interface
 show ospf neighbor
+```
+
+## BFD (Bidirectional Forwarding Detection)
+BFD Configuration
+```
+set protocols ospf area [ID_AREA_A] interface [PORT] bfd-liveness-detection minimum interval 300
+set protocols ospf area [ID_AREA_A] interface [PORT] bfd-liveness-detection multiplier 3
 ```
 
 # MPLS, LDP, LLDP, RSVP
