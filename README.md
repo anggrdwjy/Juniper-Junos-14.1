@@ -63,6 +63,11 @@
 | show ospf interface | show ospf interface configuration |
 | show ospf interface instance [VRF_NAME] | show ospf interface in VRF |
 | show ospf neighbor instance [VRF_NAME] | show ospf neighbor connected in VRF |
+| show isis interface | isis interface |
+| show isis summary | isis connected |
+| show isis adjacency detail | isis adjacency |
+| show isis database | isis database |
+| show route protocol isis | show route isis |
 | show mpls interface | show mpls interface configuration | 
 | show mpls lsp brief | show mpls lsp connected |
 | show lldp neighbors | show lldp neighbor connected |
@@ -344,6 +349,14 @@ IS-IS Wide Metric
 ```
 set protocol isis level 1 wide-metrics-only
 set protocol isis level 2 wide-metrics-only
+```
+Verification 
+```
+show isis interface
+show isis summary
+show isis adjacency detail
+show isis database
+show route protocol isis
 ```
 
 # MPLS, LDP, LLDP, RSVP
