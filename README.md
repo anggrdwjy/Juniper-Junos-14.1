@@ -211,6 +211,10 @@ Static Routing Configuration
 set routing-options static route [NETWORK_DESTINATION] 
 set routing-options static route [NETWORK_DESTINATION] next-hop [NEXT_HOP]
 ```
+Preference Route
+```
+set routing-options static route [NETWORK_DESTINATION] next-hop [NEXT_HOP] preference [VALUE]
+```
 
 # Routing Interior
 ## OSPF (Open Shortest Path First)
