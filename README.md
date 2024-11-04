@@ -19,6 +19,7 @@
   * [VLAN Tagging](#VLAN-Tagging)
   * [Port Interface](#Port-Interface)
 * [Static Route](#Static-Route)
+  * [Route Distance](#Route-Distance)
   * [Static Routing](#Static-Routing)
 * [Routing OSPF](#Routing-OSPF)
   * [OSPF \(Open Shortest Path First)](#OSPF-(Open-Shortest-Path-First))
@@ -214,6 +215,21 @@ set interfaces [PORT_INTERFACE] gigether-options 802.3ad ae3
 ```
 
 # Static Route
+## Route Distance
+| ROUTING PROTOCOL | CISCO | JUNIPER | HUAWEI |
+| --- | --- | --- | --- |
+| CONNECTED INTERFACE | 0 | 0 | 0 |
+| STATIC ROUTE | 1 | 5 | 1 | 60 |
+| RIP | 120 | 100 | 100 | 100 |
+| OSPF INTERNAL | 110 | 10 | 10 |
+| OSPF EXTERNAL | 110 | 150 | 10 |
+| IS-IS LEVEL 1 INTERNAL | 10 | 15 |
+| IS-IS LEVEL 1 EXTERNAL | 160 | 15 |
+| IS-IS LEVEL 2 INTERNAL | 18 | 15 |
+| IS-IS LEVEL 2 EXTERNAL | 165 | 15 |
+| INTERNAL BGP | 200 | 170 | 225 |
+| EXTERNAL BGP | 20 | 170 | 225 |
+
 ## Static Routing
 Static Routing Configuration
 ```
