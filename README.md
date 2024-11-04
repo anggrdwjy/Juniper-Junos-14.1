@@ -24,7 +24,7 @@
   * [OSPF \(Open Shortest Path First)](#OSPF-(Open-Shortest-Path-First))
   * [BFD \(Bidirectional Forwarding Detection)](#BFD-(Bidirectional-Forwarding-Detection))
 * [Routing IS-IS \(Intermediate System to Intermediate System)](#Routing-IS-IS(Intermediate-System-to-Intermediate-System))
-  * [IS-IS NET ADDRESS](#IS-IS-NET-ADDRESS)
+  * [IS-IS Net Address](#IS-IS-Net-Address)
   * [IS-IS Configuration](#IS-IS-Configuration)
 * [MPLS ,LDP, LLDP, RSVP](#MPLS-,LDP,-LLDP,-RSVP)
   * [MPLS \(Multi-Protocol Labeling Switching)](#MPLS-(Multi-Protocol-Labeling-Switching))
@@ -283,7 +283,7 @@ set interface [PORT] unit 0 family iso
 set interface [LOOPBACK] unit 0 family iso address 
 
 # Routing IS-IS (Intermediate System to Intermediate System)
-## IS-IS NET ADDRESS
+## IS-IS Net Address
 
 | ADDRESS | A | B | C | D |
 | --- | --- | --- | --- | --- |
