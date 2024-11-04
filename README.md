@@ -10,6 +10,7 @@
   * [System Service](#System-Service)
   * [NTP \(Network Time Protocol)](#NTP-(Network-Time-Protocol))
   * [SNMP \(Simple Network Management Protocol)](#SNMP-(Simple-Network-Management-Protocol))
+  * [Save and Load](#Save-and-Load)
 * [Interface Configuration](#Interface-Configuration)
   * [Loopback](#Loopback)
   * [Interface](#Interface)
@@ -102,19 +103,19 @@ set system root-authentication password => ENTER
 Admin User
 ```
 set system login user [USERNAME] class admin
-set system login user [USERNAME] authentication password => ENTER
+set system login user [USERNAME] authentication plain-text-password => ENTER
 [password]
 ```
 Super User
 ```
 set system login user [USERNAME] class super-user
-set system login user [USERNAME] authentication password => ENTER
+set system login user [USERNAME] authentication plain-text-password => ENTER
 [password]
 ```
 Operator User
 ```
 set system login user [USERNAME] class operator
-set system login user [USERNAME] authentication password => ENTER
+set system login user [USERNAME] authentication plain-text-password => ENTER
 [password]
 ```
 
@@ -143,6 +144,16 @@ set snmp community [SNMP-COMM] authorization read-only
 set snmp community [SNMP-COMM] clients [TARGET_IP_A]
 set snmp community [SNMP-COMM] clients [TARGET_IP_B]
 set snmp community [SNMP-COMM] clients [TARGET_IP_C]
+```
+
+## Save and Load
+Save Configuration
+```
+save [CONFIGURATION-NAME]
+```
+Load Backup Configuration
+```
+load override [CONFIGURATION-NAME]
 ```
 
 # Interface
