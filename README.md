@@ -285,7 +285,7 @@ set interface [LOOPBACK] unit 0 family iso address
 | IP ADDRESS | 1 | 1 | 1 | 1 |
 | OCTET | 001 | 001 | 001 | 001 |
 
-| --- | --- | --- | --- |
+
 | CONVERSION | 0010 | 0100 | 1001 |
 | --- | --- | --- | --- |
 
