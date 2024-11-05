@@ -216,19 +216,19 @@ set interfaces [PORT_INTERFACE] gigether-options 802.3ad ae3
 
 # Static Route
 ## Route Distance
-| ROUTING PROTOCOL | CISCO | JUNIPER | HUAWEI |
-| --- | --- | --- | --- |
-| CONNECTED INTERFACE | 0 | 0 | 0 |
-| STATIC ROUTE | 1 | 5 | 1 | 60 |
-| RIP | 120 | 100 | 100 | 100 |
-| OSPF INTERNAL | 110 | 10 | 10 |
-| OSPF EXTERNAL | 110 | 150 | 10 |
-| IS-IS LEVEL 1 INTERNAL | 115 | 10 | 15 |
-| IS-IS LEVEL 1 EXTERNAL | 115 | 160 | 15 |
-| IS-IS LEVEL 2 INTERNAL | 115 | 18 | 15 |
-| IS-IS LEVEL 2 EXTERNAL | 115 | 165 | 15 |
-| INTERNAL BGP | 200 | 170 | 225 |
-| EXTERNAL BGP | 20 | 170 | 225 |
+| ROUTING PROTOCOL | CISCO | JUNIPER | HUAWEI | MIKROTIK |
+| --- | --- | --- | --- | --- |
+| CONNECTED INTERFACE | 0 | 0 | 0 | 0 |
+| STATIC ROUTE | 1 | 5 | 1 | 60 | 1 |
+| RIP | 120 | 100 | 100 | 100 | 120 |
+| OSPF INTERNAL | 110 | 10 | 10 | 110 |
+| OSPF EXTERNAL | 110 | 150 | 10 | 110 |
+| IS-IS LEVEL 1 INTERNAL | 115 | 10 | 15 | - |
+| IS-IS LEVEL 1 EXTERNAL | 115 | 160 | 15 | - |
+| IS-IS LEVEL 2 INTERNAL | 115 | 18 | 15 | - |
+| IS-IS LEVEL 2 EXTERNAL | 115 | 165 | 15 | - |
+| INTERNAL BGP | 200 | 170 | 225 | 200 |
+| EXTERNAL BGP | 20 | 170 | 225 | 20 |
 
 ## Static Routing
 Static Routing Configuration
