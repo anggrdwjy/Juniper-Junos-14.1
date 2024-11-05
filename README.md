@@ -1,4 +1,5 @@
 ## This repository is a guide for learn Juniper Junos® OS resources and references to practice configuration Router.
+Junos OS (also known as Juniper Junos, Junos and JUNOS) is a FreeBSD-based network operating system used in Juniper Networks routing, switching and security devices. Junos OS was first made available on 7 July 1998. As of 2008, feature updates have been released quarterly. As of March 2024, the latest version is Junos OS 23.2R1, released on June 23, 2023.
 
 ## Summary Of Repository
 * [Command References](#Command-References)
