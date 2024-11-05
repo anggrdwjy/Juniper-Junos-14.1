@@ -295,9 +295,6 @@ set protocols ospf area [ID_AREA_A] interface [PORT] bfd-liveness-detection mini
 set protocols ospf area [ID_AREA_A] interface [PORT] bfd-liveness-detection multiplier 3
 ```
 
-set interface [PORT] unit 0 family iso
-set interface [LOOPBACK] unit 0 family iso address 
-
 # Routing IS-IS (Intermediate System to Intermediate System)
 ## IS-IS Net Address
 
